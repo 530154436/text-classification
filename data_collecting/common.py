@@ -23,7 +23,7 @@ COMPILER = re.compile('[\u3000\xa0]')
 
 def getDocsFromHtml(grade, subject, url):
     ''' 解析年级 http://www.teachercn.com/Jxal/Cysxja/ '''
-    res = requests.get(url=url, timeout=600)
+    res = requests.get(url=url, timeout=60)
     if res.status_code != 200 : return []
     html = etree.HTML(res.content.decode(encoding='gb2312', errors='ignore'))
     rows = html.xpath(r'//td[@valign="top"]')[1]
@@ -54,15 +54,18 @@ def getContentFromHtml(url, index=5):
     base = '.'.join(url.split('.')[:-1:1])
     rows = []
     for i in range(index):
-        res = requests.get(url=url, timeout=600)
-        res.encoding = 'gb2312'
-        if res.status_code != 200:
-            continue
-        html = etree.HTML(res.content)
-        # 获取 p 标签或 a 标签的内容
-        rows.extend(html.xpath(r'//p/text() | //p/a/text() | //H3/a/text() | //div/text()' ))
-        print(rows)
-        url = base + '_{}.html'.format(i+2)
+        try:
+            res = requests.get(url=url, timeout=60)
+            res.encoding = 'gb2312'
+            if res.status_code != 200:
+                continue
+            html = etree.HTML(res.content)
+            # 获取 p 标签或 a 标签的内容
+            rows.extend(html.xpath(r'//p/text() | //p/a/text() | //H3/a/text() | //div/text()' ))
+            # print(rows)
+            url = base + '_{}.html'.format(i+2)
+        except BaseException as e:
+            print(e)
     return '  '.join(rows)
 
 def save2csv(fpath, key_values):

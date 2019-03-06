@@ -40,7 +40,9 @@ def seg_sentence(sentence, stopwords=None):
     result = []
     for word in sentence_seged:
         # 过滤停用词
-        if len(word.strip())==0 or (stopwords is not None and word in stopwords):
+        if len(word.strip())==0:
+            continue
+        if stopwords is not None and word in stopwords:
             continue
         result.append(word)
     return result
@@ -69,14 +71,16 @@ def seg(corpus_path, user_dic_path, stop_words_path):
                 title = document[TITLE]
 
                 seg_content = seg_sentence(content,stopwords=stopwords)
-                seg_tilte = seg_sentence(title)
+                seg_tilte = seg_sentence(title, stopwords=stopwords)
 
                 print(subject, seg_tilte, seg_content)
 
 if __name__ == '__main__':
     stop_words_path = '../dic/stopwords.txt'
     user_dic_path = '../dic/userdic.txt'
-    corpus_path = '/Users/zhengchubin/Desktop/corpus/'
+    # corpus_path = '/Users/zhengchubin/Desktop/corpus/'
+    corpus_path = 'D:\文本分类\语料库\数据库'
     seg(corpus_path, user_dic_path, stop_words_path)
 
     stop_words = load_stop_words(stop_words_path)
+    print('的' in stop_words)

@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 import csv
 import sys
-csv.field_size_limit(sys.maxsize)
+csv.field_size_limit(100000000)
 
 class CSVReader:
     def __init__(self, fpath):

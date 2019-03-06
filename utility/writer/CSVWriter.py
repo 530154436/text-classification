@@ -4,7 +4,7 @@ import csv
 import sys
 
 # 取消csv列名长度的限制
-csv.field_size_limit(sys.maxsize)
+csv.field_size_limit(100000000)
 
 class CSVWriter:
     def __init__(self, fpath, encoding='utf-8', mode='w'):

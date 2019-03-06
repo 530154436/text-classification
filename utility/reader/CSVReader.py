@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 import csv
-import codecs
+import sys
+csv.field_size_limit(sys.maxsize)
+
 class CSVReader:
     def __init__(self, fpath):
         self.fpath = fpath
@@ -31,10 +33,10 @@ class CSVReader:
         f_csv = csv.reader(self.file)
         return f_csv
 
-    def read2JsonList(self, transformTypes):
+    def read2JsonList(self, fieldTypes=None):
         '''
         csv转json
-        :param transformType: 标题列对应的数据类型
+        :param fieldTypes: 标题列对应的数据类型 {标题:类型}，默认均为str
         :return:  json列表
         '''
         if self.file is None:
@@ -45,7 +47,14 @@ class CSVReader:
         count = 0
         for row in reader:
             try:
-                csv_rows.extend([{title[i]: transformTypes[i](row[title[i]]) for i in range(len(title))}])
+                result = {}
+                for i in range(len(title)):
+                    fieldName = title[i]
+                    value = row[title[i]]
+                    if fieldTypes is not None and fieldName in fieldTypes:  # 强制转换类型
+                        value = fieldTypes[fieldName](value)
+                    result[fieldName] = value
+                csv_rows.append(result)
                 count += 1
                 if count % 100 == 0:
                     print("读取csv文件: {}".format(count))

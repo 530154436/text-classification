@@ -40,7 +40,7 @@ def seg_sentence(sentence, stopwords=None):
     result = []
     for word in sentence_seged:
         # 过滤停用词
-        if len(word.strip())==0:
+        if len(word.strip())<=1:
             continue
         if stopwords is not None and word in stopwords:
             continue
@@ -70,6 +70,7 @@ def seg(corpus_path, user_dic_path, stop_words_path):
                 subject = document[SUBJECT]
                 title = document[TITLE]
 
+                # 部分content为空，调用java-TutorialContentExtractor
                 seg_content = seg_sentence(content,stopwords=stopwords)
                 seg_tilte = seg_sentence(title, stopwords=stopwords)
 

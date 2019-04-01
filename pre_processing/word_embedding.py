@@ -31,7 +31,7 @@ def processing_wiki_cn(input, output):
         logger.info("Finished Saved "+str(i)+" articles.")
 
 if __name__ == '__main__':
-    BaseDir = '~/D/text_classification'
+    BaseDir = '/home/habout/Desktop/text_classification'
     input = os.path.join(BaseDir, 'zhwiki-latest-pages-articles.xml')
     output = os.path.join(BaseDir, 'wiki-zh.txt')
     processing_wiki_cn(input, output)

@@ -1,7 +1,10 @@
 # /usr/bin/env python3
 # -*- coding:utf-8 -*-
+from pre_processing import segment
 from gensim.corpora import WikiCorpus
 import logging
+import zhconv
+import jieba
 import os.path
 
 def processing_wiki_cn(input, output):
@@ -17,6 +20,10 @@ def processing_wiki_cn(input, output):
     logging.root.setLevel(level=logging.INFO)
     logger.info("running %s" % ' '.join(input))
 
+    # 加载词典
+    jieba.load_userdict('../dic/userdic.txt')
+    stopwords = segment.load_stop_words('../dic/stopwords.txt')
+
     space = " "
     i = 0
     with open(output, mode='w', encoding='utf-8') as out:
@@ -24,7 +31,13 @@ def processing_wiki_cn(input, output):
         wiki =WikiCorpus(input, lemmatize=False, dictionary=[])
         # 通过get_texts将维基里的每篇文章转换位1行text文本，并且去掉了标点符号等内容
         for text in wiki.get_texts():
-            out.write(space.join(text) + "\n")
+            sentence = space.join(text)
+            # 繁简转换
+            convert_sentence = zhconv.convert(sentence, 'zh-hans')
+            # 分词
+            seg_sentence = segment.seg_sentence(convert_sentence, stopwords=stopwords)
+
+            out.write(space.join(seg_sentence)+"\n")
             i = i+1
             if (i % 10000 == 0):
                 logger.info("Saved "+str(i)+" articles.")
@@ -32,6 +45,6 @@ def processing_wiki_cn(input, output):
 
 if __name__ == '__main__':
     BaseDir = '/home/habout/Desktop/text_classification'
-    input = os.path.join(BaseDir, 'zhwiki-latest-pages-articles.xml')
-    output = os.path.join(BaseDir, 'wiki-zh.txt')
+    input = os.path.join(BaseDir, 'zhwiki-latest-pages-articles.xml.bz2')
+    output = os.path.join(BaseDir, 'wiki-zh.seg.txt')
     processing_wiki_cn(input, output)

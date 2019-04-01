@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 import csv
-import sys
 
 # 取消csv列名长度的限制
 csv.field_size_limit(100000000)

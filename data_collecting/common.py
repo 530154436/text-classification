@@ -11,7 +11,8 @@ sys.path.insert(0, os.path.abspath(os.getcwd()+"/../"))
 sys.path.insert(0, os.path.abspath(os.getcwd()+"/../../"))
 
 BASE_URL = 'http://www.teachercn.com'
-BASE_DIR = '/Users/zhengchubin/Desktop/corpus/'
+BASE_DIR = '/Users/zhengchubin/Desktop/text_classification/corpus/'
+SEG_DIR = '/Users/zhengchubin/Desktop/text_classification/seg/'
 GRADE = '年级'
 SUBJECT = '科目'
 TITLE = '标题'

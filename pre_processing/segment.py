@@ -3,6 +3,7 @@
 import jieba
 import os
 import sys
+from data_collecting import common
 from utility.reader.CSVReader import CSVReader
 from utility.writer.CSVWriter import CSVWriter
 sys.path.insert(0, os.path.abspath(os.getcwd()+"/../"))
@@ -23,9 +24,8 @@ def load_from_csv(fpath):
     reader = CSVReader(fpath)
     return reader.read2JsonList()
 
-def save2csv(fpath, key_values):
+def save2csv(fpath, Headers, key_values):
     writer = CSVWriter(fpath)
-    Headers = ['年级','科目', '标题', 'URL', '内容']
     writer.write(Headers, key_values)
 
 def load_stop_words(filePath):
@@ -47,10 +47,11 @@ def seg_sentence(sentence, stopwords=None):
         result.append(word)
     return result
 
-def seg(corpus_path, user_dic_path, stop_words_path):
+def seg(corpus_path, user_dic_path, stop_words_path, seg_path):
     # 加载词典
     jieba.load_userdict(user_dic_path)
     stopwords = load_stop_words(stop_words_path)
+    segs = {}
 
     types = os.listdir(corpus_path)
     for cate in types:
@@ -63,10 +64,9 @@ def seg(corpus_path, user_dic_path, stop_words_path):
             file_path = os.path.join(dir_name, file)
             documents = load_from_csv(file_path)
 
+            print(file_path)
             for document in documents:
-                grade = document[GRADE]
                 content = document[CONTENT]
-                url = document[DOC_URL]
                 subject = document[SUBJECT]
                 title = document[TITLE]
 
@@ -74,14 +74,18 @@ def seg(corpus_path, user_dic_path, stop_words_path):
                 seg_content = seg_sentence(content,stopwords=stopwords)
                 seg_tilte = seg_sentence(title, stopwords=stopwords)
 
-                print(subject, seg_tilte, seg_content)
+                if subject not in segs:
+                    segs[subject] = []
+                segs[subject].append({TITLE:seg_tilte, CONTENT:seg_content, SUBJECT:subject})
+    Headers = [SUBJECT, TITLE, CONTENT]
+    for subject in segs.keys():
+        path = os.path.join(seg_path, '{}.csv'.format(subject))
+        save2csv(path, Headers, segs[subject])
 
 if __name__ == '__main__':
     stop_words_path = '../dic/stopwords.txt'
     user_dic_path = '../dic/userdic.txt'
-    # corpus_path = '/Users/zhengchubin/Desktop/corpus/'
-    corpus_path = 'D:\文本分类\语料库\数据库'
-    seg(corpus_path, user_dic_path, stop_words_path)
-
-    stop_words = load_stop_words(stop_words_path)
-    print('的' in stop_words)
+    corpus_path = common.BASE_DIR
+    seg_path = common.SEG_DIR
+    # corpus_path = 'D:\文本分类\语料库\数据库'
+    seg(corpus_path, user_dic_path, stop_words_path,seg_path)

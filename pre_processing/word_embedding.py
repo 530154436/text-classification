@@ -2,10 +2,19 @@
 # -*- coding:utf-8 -*-
 from pre_processing import segment
 from gensim.corpora import WikiCorpus
+from gensim.models import Word2Vec
+from gensim.models.word2vec import LineSentence
+import multiprocessing
 import logging
 import zhconv
 import jieba
 import os.path
+
+# 得到文件名
+logger = logging.getLogger()
+logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s')
+logging.root.setLevel(level=logging.INFO)
+
 
 def processing_wiki_cn(input, output):
     '''
@@ -14,11 +23,7 @@ def processing_wiki_cn(input, output):
     :param output:
     :return:
     '''
-    # 得到文件名
-    logger = logging.getLogger(os.path.basename(input))
-    logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s')
-    logging.root.setLevel(level=logging.INFO)
-    logger.info("running %s" % ' '.join(input))
+    logger.info("running %s" % input)
 
     # 加载词典
     jieba.load_userdict('../dic/userdic.txt')
@@ -43,8 +48,48 @@ def processing_wiki_cn(input, output):
                 logger.info("Saved "+str(i)+" articles.")
         logger.info("Finished Saved "+str(i)+" articles.")
 
+def train_word2vec(seg_file, output, sg=1, size=300, window=5, min_count=3,iter=100):
+    '''
+    训练词向量模型
+    sg  default (`sg=0`), CBOW
+        Otherwise (`sg=1`), skip-gram
+    '''
+    logger.info("running %s" % seg_file)
+
+    # 训练 skip-gram 模型
+    model = Word2Vec(LineSentence(seg_file), workers=multiprocessing.cpu_count(),
+                     iter=iter, sg=sg, size=size, window=window, min_count=min_count)
+
+    # 保存模型
+    model.save("{}.model".format(output))
+    model.wv.save_word2vec_format("{}.vector".format(output), binary=False)
+    model.wv.save_word2vec_format("{}.vector.bin".format(output), binary=True)
+
+def load_word2vec(model_path):
+    '''
+    加载词向量
+    '''
+    model = Word2Vec.load(model_path)
+    # word = model.most_similar("足球")
+    # for t in word:
+    #     print(t[0], t[1])
+    return model
+
+
 if __name__ == '__main__':
-    BaseDir = '/home/habout/Desktop/text_classification'
-    input = os.path.join(BaseDir, 'zhwiki-latest-pages-articles.xml.bz2')
-    output = os.path.join(BaseDir, 'wiki-zh.seg.txt')
-    processing_wiki_cn(input, output)
+    # BaseDir = '/home/habout/Desktop/text_classification'
+    BaseDir = '/Users/zhengchubin/Desktop/text_classification'
+    # input = os.path.join(BaseDir, 'zhwiki-latest-pages-articles.xml.bz2')
+    # output = os.path.join(BaseDir, 'wiki-zh.seg.txt')
+    # processing_wiki_cn(input, output)
+
+    seg = os.path.join(BaseDir, "seg", "seg.txt")
+    model = os.path.join(BaseDir, "model", "wiki.zh")
+
+    # 训练
+    # train_word2vec(seg, model)
+
+    model = os.path.join(BaseDir, "model", "wiki.zh.model")
+    load_word2vec(model)
+
+

@@ -33,7 +33,7 @@ GRADE_URL = {
 }
 
 JIAO_AN = 'ja'
-SAVE_DIR = os.path.join(common.BASE_DIR, JIAO_AN)
+SAVE_DIR = os.path.join(common.CORPUS_DIR, JIAO_AN)
 
 # 全局统计量
 COUNT = 0

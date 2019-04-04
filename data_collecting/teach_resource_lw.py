@@ -26,7 +26,7 @@ GRADE_URL = {
 }
 
 LUN_WEN = 'lw'
-SAVE_DIR = os.path.join(common.BASE_DIR, LUN_WEN)
+SAVE_DIR = os.path.join(common.CORPUS_DIR, LUN_WEN)
 
 # 全局统计量
 COUNT = 0

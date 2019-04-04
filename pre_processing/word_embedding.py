@@ -1,8 +1,11 @@
 # /usr/bin/env python3
 # -*- coding:utf-8 -*-
+import os
+import sys
+from data_collecting.common import logger,BASE_DIR
 from pre_processing import segment
 from gensim.corpora import WikiCorpus
-from gensim.models import Word2Vec
+from gensim.models import word2vec, KeyedVectors
 from gensim.models.word2vec import LineSentence
 import multiprocessing
 import logging
@@ -10,11 +13,8 @@ import zhconv
 import jieba
 import os.path
 
-# 得到文件名
-logger = logging.getLogger()
-logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s')
-logging.root.setLevel(level=logging.INFO)
-
+sys.path.insert(0, os.path.abspath(os.getcwd()+"/../"))
+sys.path.insert(0, os.path.abspath(os.getcwd()+"/../../"))
 
 def processing_wiki_cn(input, output):
     '''
@@ -26,8 +26,8 @@ def processing_wiki_cn(input, output):
     logger.info("running %s" % input)
 
     # 加载词典
-    jieba.load_userdict('../dic/userdic.txt')
-    stopwords = segment.load_stop_words('../dic/stopwords.txt')
+    jieba.load_userdict('dic/userdic.txt')
+    stopwords = segment.load_stop_words('dic/stopwords.txt')
 
     space = " "
     i = 0
@@ -57,24 +57,36 @@ def train_word2vec(seg_file, output, sg=1, size=300, window=5, min_count=3,iter=
     logger.info("running %s" % seg_file)
 
     # 训练 skip-gram 模型
-    model = Word2Vec(LineSentence(seg_file), workers=multiprocessing.cpu_count(),
+    model = word2vec.Word2Vec(LineSentence(seg_file), workers=multiprocessing.cpu_count(),
                      iter=iter, sg=sg, size=size, window=window, min_count=min_count)
 
     # 保存模型
-    model.save("{}.model".format(output))
-    model.wv.save_word2vec_format("{}.vector".format(output), binary=False)
-    model.wv.save_word2vec_format("{}.vector.bin".format(output), binary=True)
+    # model.save("{}.sg{}.size{}.iter{}".format(output, sg, size, iter))
+    model.wv.save_word2vec_format("{}.sg{}.size{}.iter{}".format(output, sg, size, iter), binary=False)
+    model.wv.save_word2vec_format("{}.sg{}.size{}.iter{}.bin".format(output, sg, size, iter), binary=True)
 
-def load_word2vec(model_path):
+def load_word2vec(model_path, binary=False):
     '''
     加载词向量
     '''
-    model = Word2Vec.load(model_path)
-    # word = model.most_similar("足球")
-    # for t in word:
-    #     print(t[0], t[1])
+    logger.info("加载 {} ...".format(model_path))
+    model = KeyedVectors.load_word2vec_format(model_path, binary=binary)
+    logger.info("{} 加载完成.".format(model_path))
     return model
 
+def getVec(word, model):
+    if word in model:
+        return model[word]
+    else:
+        logging.info("{}不在词表中.".format(word))
+
+def test():
+    model_path = os.path.join(BASE_DIR, "model", "wiki.zh.vector")
+    model = load_word2vec(model_path)
+    word = "长沙"
+    print(model['长沙'])
+    print(word in model)
+    print('lala' in model)
 
 if __name__ == '__main__':
     # BaseDir = '/home/habout/Desktop/text_classification'
@@ -84,12 +96,10 @@ if __name__ == '__main__':
     # processing_wiki_cn(input, output)
 
     seg = os.path.join(BaseDir, "seg", "seg.txt")
-    model = os.path.join(BaseDir, "model", "wiki.zh")
+    model = os.path.join(BaseDir, "vector")
 
     # 训练
-    # train_word2vec(seg, model)
+    # train_word2vec(seg, model, sg=1, size=300, window=5, min_count=3,iter=100)
 
-    model = os.path.join(BaseDir, "model", "wiki.zh.model")
-    load_word2vec(model)
-
+    test()
 

@@ -6,6 +6,7 @@ import sys
 from data_collecting import common
 from utility.reader.CSVReader import CSVReader
 from utility.writer.CSVWriter import CSVWriter
+import numpy as np
 sys.path.insert(0, os.path.abspath(os.getcwd()+"/../"))
 sys.path.insert(0, os.path.abspath(os.getcwd()+"/../../"))
 
@@ -50,6 +51,7 @@ def seg_sentence(sentence, stopwords=STOPWORDS):
     return result
 
 def seg_corpus(corpus_path, user_dic_path, seg_path):
+    # lens = []
     # 加载词典
     jieba.load_userdict(user_dic_path)
     segs = {}
@@ -79,6 +81,11 @@ def seg_corpus(corpus_path, user_dic_path, seg_path):
                 if subject not in segs:
                     segs[subject] = []
                 segs[subject].append({TITLE:' '.join(seg_tilte), CONTENT:' '.join(seg_content), SUBJECT:subject})
+                # lens.append(len(seg_content))
+    # print("average: ", np.average(lens))
+    # print("max: ",np.max(lens))
+    # print("min: ",np.min(lens))
+    # print("percentile(0, 25, 50, 75, 80, 85,  90, 95): ",np.percentile(lens, (0, 25, 50, 75, 80, 85,  90, 95)))
     Headers = [SUBJECT, TITLE, CONTENT]
     for subject in segs.keys():
         path = os.path.join(seg_path, '{}.csv'.format(subject))

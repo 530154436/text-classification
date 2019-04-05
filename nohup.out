@@ -1,2 +1,0 @@
-nohup: ./train.sh: Permission denied
-nohup: train.sh: No such file or directory

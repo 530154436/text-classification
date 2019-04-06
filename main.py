@@ -147,7 +147,8 @@ def train(model_type, segs_path, word2vec_path):
 
     # 监听最优模型
     bst_model_path = os.path.join(
-        MODEL_DIR, '{}_{}_{}_{}.check_point' .format(model_type, LSTM_NUM, DENSE_NUM, LSTM_DROP))
+        MODEL_DIR,
+        'vsg{}.vs{}.vi{}.ln{}.dn{}.ld{}.{}.check_point'.format(SG, SIZE, ITER, LSTM_NUM, DENSE_NUM, LSTM_DROP, model_type))
 
     # 当监测值不再改善时，该回调函数将中止训练
     # early_stopping = EarlyStopping(monitor='val_loss', patience=3)
@@ -172,7 +173,7 @@ def train(model_type, segs_path, word2vec_path):
               shuffle=True,                                     # 是否打乱数据集
               validation_data=(X_test, Y_test),                 # 验证集
               callbacks=[model_checkpoint])
-    save_model(model_type, MODEL_DIR)
+    save_model(model_type)
 
 def save_model(model_type):
     '''

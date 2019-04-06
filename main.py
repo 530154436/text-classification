@@ -173,6 +173,9 @@ def train(model_type, segs_path, word2vec_path):
               shuffle=True,                                     # 是否打乱数据集
               validation_data=(X_test, Y_test),                 # 验证集
               callbacks=[model_checkpoint])
+    elif model_type == BI_LSTM:
+        pass
+
     save_model(model_type)
 
 def save_model(model_type):
@@ -250,11 +253,11 @@ def predict_documents(documents, model_type=LSTM):
     y = LABEL_ENCODER.inverse_transform(y.ravel())
     return y
 
-def main():
+def main(model_type):
     # 设定路径
     segs_path = [os.path.join(SEG_DIR, "{}.csv".format(i)) for i in SUBJECT]
     word2vec_path = os.path.join(MODEL_DIR, "vector.sg{}.size{}.iter{}.bin".format(SG, SIZE, ITER))
-    train(LSTM, segs_path, word2vec_path)
+    train(model_type, segs_path, word2vec_path)
 
     # load_model(LSTM, model_dir)
     # y = predict_documents(['魏晋 五言诗 三首 设计 示例 学习 魏晋 五言诗 体例 认识到 五言诗 我国 古典 诗歌 史上', '牵牛星 思想 内容 艺术 特色'])
@@ -277,6 +280,7 @@ def parse():
     parser.add_argument("--lstm_drop", dest='LSTM_DROP', required=True, type=float )
     parser.add_argument("--dense_num", dest='DENSE_NUM', required=True, type=int)
     parser.add_argument("--epochs", dest='EPOCHS', required=True, type=int)
+    parser.add_argument("--model_type", dest='model_type', required=True, type=str)
     args = parser.parse_args()
     SG = args.SG
     SIZE = args.SIZE
@@ -285,8 +289,10 @@ def parse():
     LSTM_DROP = args.LSTM_DROP
     DENSE_NUM = args.DENSE_NUM
     EPOCHS = args.EPOCHS
+    model_type = args.model_type
+    return model_type
 
 if __name__ == '__main__':
-    args = parse()
-    main()
+    model_type = parse()
+    main(model_type)
     print(EPOCHS)

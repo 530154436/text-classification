@@ -41,7 +41,7 @@ LSTM_NUM = 100                                       # LSTM 单元数
 DENSE_NUM = 100                                      # DENSE 单元数
 ################################
 # cpu 核数设置
-NUM_CORES = 8
+NUM_CORES = 16
 config = tf.ConfigProto(intra_op_parallelism_threads=NUM_CORES,
                         inter_op_parallelism_threads=NUM_CORES,
                         allow_soft_placement=True,

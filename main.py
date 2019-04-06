@@ -13,9 +13,10 @@ from keras.callbacks import  ModelCheckpoint
 from data_collecting.common import logger,MODEL_DIR,SEG_DIR
 from data_collecting import common
 from pre_processing import word_embedding
-from model.TextRNN import TextRNN
+from model.LSTM import TextRNN_LSTM
 import tensorflow as tf
 from keras import backend as K
+from keras.callbacks import TensorBoard
 
 SUBJECT=np.array(["语文", "数学", "英语", "物理", "化学", "生物", "历史", "地理", "政治"])
 CLASS_NUM = len(SUBJECT)
@@ -81,7 +82,7 @@ def preprocess(dfs):
 
     # 划分训练集和测试集
     documents_train, documents_test, y_train, y_test = \
-        train_test_split(documents, labels, test_size=0.1, random_state=1000)
+        train_test_split(documents, labels, test_size=0.25, random_state=5)
 
     logger.info("划分数据集={}, 测试集={}".format(len(documents_train),len(documents_test)))
 
@@ -155,9 +156,20 @@ def train(model_type, segs_path, word2vec_path):
     # 该回调函数将在每个epoch后保存模型到 bst_model_path
     model_checkpoint = ModelCheckpoint(bst_model_path, save_best_only=True, save_weights_only=False)
 
+    # 可视化
+    tb = TensorBoard(log_dir='./graph',      # graph 目录
+                     histogram_freq=1,       # 按照何等频率（epoch）来计算直方图，0为不计算
+                     batch_size=BATCH_SIZE,  # 用多大量的数据计算直方图
+                     write_graph=False,      # 是否存储网络结构图
+                     write_grads=False,      # 是否可视化梯度直方图
+                     write_images=False,     # 是否可视化参数
+                     embeddings_freq=0,
+                     embeddings_layer_names=None,
+                     embeddings_metadata=None)
+
     if model_type == LSTM:
         # 网络结构、目标函数设置
-        text_rnn = TextRNN(EMBEDDING_MATRIX, class_num=CLASS_NUM)
+        text_rnn = TextRNN_LSTM(EMBEDDING_MATRIX, class_num=CLASS_NUM)
         RNN_MODEL = text_rnn.get_model(MAX_SEQUENCE_LEN,
                                        lstm_drop=LSTM_DROP,
                                        lstm_num=LSTM_NUM,
@@ -172,7 +184,7 @@ def train(model_type, segs_path, word2vec_path):
               epochs=EPOCHS,                                    # 迭代次数
               shuffle=True,                                     # 是否打乱数据集
               validation_data=(X_test, Y_test),                 # 验证集
-              callbacks=[model_checkpoint])
+              callbacks=[model_checkpoint, tb])
     elif model_type == BI_LSTM:
         pass
 

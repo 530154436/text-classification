@@ -13,7 +13,7 @@ sys.path.insert(0, os.path.abspath(os.getcwd()+"/../../"))
 
 BASE_URL = 'http://www.teachercn.com'
 BASE_DIR = "/Users/zhengchubin/Desktop/text_classification/"
-BASE_DIR = "/home/ai/text_classification/"
+# BASE_DIR = "/home/ai/text_classification/"
 # CORPUS_DIR = os.path.join(BASE_DIR, 'corpus')
 SEG_DIR = os.path.join(BASE_DIR, 'seg')
 MODEL_DIR = os.path.join(BASE_DIR, 'model')

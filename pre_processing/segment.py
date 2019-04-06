@@ -2,13 +2,11 @@
 # -*- coding:utf-8 -*-
 import jieba
 import os
-import sys
-from data_collecting import common
+import zhconv
+from gensim.corpora import WikiCorpus
 from utility.reader.CSVReader import CSVReader
 from utility.writer.CSVWriter import CSVWriter
-import numpy as np
-sys.path.insert(0, os.path.abspath(os.getcwd()+"/../"))
-sys.path.insert(0, os.path.abspath(os.getcwd()+"/../../"))
+from data_collecting.common import logger,CORPUS_DIR,SEG_DIR
 
 CHINES_CHARSETS = ["\u200b","\u2000","\u206F","\u2E00","\u2E7F","\u3000",'\u3000'
                    "\u303F","\uff01","\uff02","\uff08","\uff09","\uff0c",'\xa0'
@@ -25,8 +23,9 @@ def load_stop_words(filePath):
     stopwords.union(set(CHINES_CHARSETS))
     return stopwords
 
-# STOPWORDS = load_stop_words('../dic/stopwords.txt')
-STOPWORDS = load_stop_words('dic/stopwords.txt')
+# 加载词典
+STOPWORDS = load_stop_words(os.path.join(CORPUS_DIR, 'dic/stopwords.txt'))
+jieba.load_userdict(os.path.join(CORPUS_DIR, 'dic/userdic.txt'))
 
 def load_from_csv(fpath):
     '''读文件'''
@@ -37,7 +36,7 @@ def save2csv(fpath, Headers, key_values):
     writer = CSVWriter(fpath)
     writer.write(Headers, key_values)
 
-def seg_sentence(sentence, stopwords=STOPWORDS):
+def seg_sentence(sentence):
     '''对文章进行分词'''
     sentence_seged = jieba.cut(sentence.strip())
     result = []
@@ -45,19 +44,45 @@ def seg_sentence(sentence, stopwords=STOPWORDS):
         # 过滤停用词
         if len(word.strip())<=1:
             continue
-        if stopwords is not None and word in stopwords:
+        if STOPWORDS is not None and word in STOPWORDS:
             continue
         result.append(word)
     return result
 
-def seg_corpus(corpus_path, user_dic_path, seg_path):
-    # lens = []
-    # 加载词典
-    jieba.load_userdict(user_dic_path)
+def seg_wiki_cn():
+    '''
+    处理维基百科中文语料
+    '''
+    input = os.path.join(CORPUS_DIR, 'wiki.zh.xml.bz2')
+    output = os.path.join(SEG_DIR, 'wiki.zh.seg.txt')
+    logger.info("running %s" % input)
+
+    space = " "
+    i = 0
+    with open(output, mode='w', encoding='utf-8') as out:
+        # gensim里的维基百科处理类WikiCorpus
+        wiki =WikiCorpus(input, lemmatize=False, dictionary=[])
+        # 通过get_texts将维基里的每篇文章转换位1行text文本，并且去掉了标点符号等内容
+        for text in wiki.get_texts():
+            sentence = space.join(text)
+            # 繁简转换
+            convert_sentence = zhconv.convert(sentence, 'zh-hans')
+            # 分词
+            seged_sentence = seg_sentence(convert_sentence)
+
+            out.write(space.join(seged_sentence)+"\n")
+            i = i+1
+            if (i % 1000 == 0):
+                logger.info("Saved "+str(i)+" articles.")
+        logger.info("Finished Saved "+str(i)+" articles.")
+
+def seg_corpus():
     segs = {}
-    types = os.listdir(corpus_path)
+    types = os.listdir(CORPUS_DIR)
     for cate in types:
-        dir_name = os.path.join(corpus_path, cate)
+        if cate not in ['ja', 'lw']:
+            continue
+        dir_name = os.path.join(CORPUS_DIR, cate)
         if os.path.isfile(dir_name): continue
         files = os.listdir(dir_name)
 
@@ -81,19 +106,11 @@ def seg_corpus(corpus_path, user_dic_path, seg_path):
                 if subject not in segs:
                     segs[subject] = []
                 segs[subject].append({TITLE:' '.join(seg_tilte), CONTENT:' '.join(seg_content), SUBJECT:subject})
-                # lens.append(len(seg_content))
-    # print("average: ", np.average(lens))
-    # print("max: ",np.max(lens))
-    # print("min: ",np.min(lens))
-    # print("percentile(0, 25, 50, 75, 80, 85,  90, 95): ",np.percentile(lens, (0, 25, 50, 75, 80, 85,  90, 95)))
     Headers = [SUBJECT, TITLE, CONTENT]
     for subject in segs.keys():
-        path = os.path.join(seg_path, '{}.csv'.format(subject))
+        path = os.path.join(SEG_DIR, '{}.csv'.format(subject))
         save2csv(path, Headers, segs[subject])
 
 if __name__ == '__main__':
-    user_dic_path = '../dic/userdic.txt'
-    corpus_path = common.CORPUS_DIR
-    seg_path = common.SEG_DIR
-    # corpus_path = 'D:\文本分类\语料库\数据库'
-    seg_corpus(corpus_path, user_dic_path, seg_path)
+    # seg_corpus()
+    seg_wiki_cn()

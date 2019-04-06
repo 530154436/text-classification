@@ -3,20 +3,21 @@ import os
 import argparse
 import pickle
 import pandas as pd
+import tensorflow as tf
 import numpy as np
 from keras.preprocessing.text import Tokenizer
 from keras import models
 from sklearn.preprocessing import OneHotEncoder,LabelEncoder
 from keras.preprocessing.sequence import pad_sequences
 from sklearn.model_selection import train_test_split
+from sklearn import metrics
 from keras.callbacks import  ModelCheckpoint
+from keras import backend as K
+from keras.callbacks import TensorBoard
 from data_collecting.common import logger,MODEL_DIR,SEG_DIR
 from data_collecting import common
 from pre_processing import word_embedding
 from model.LSTM import TextRNN_LSTM
-import tensorflow as tf
-from keras import backend as K
-from keras.callbacks import TensorBoard
 
 SUBJECT=np.array(["语文", "数学", "英语", "物理", "化学", "生物", "历史", "地理", "政治"])
 CLASS_NUM = len(SUBJECT)
@@ -26,7 +27,7 @@ CLASS_NUM = len(SUBJECT)
 ################################
 # word2vec
 SG = 0                                               # 算法模型 0:"cbow";1:"skg"
-SIZE = 300                                           # 词向量维度
+SIZE = 100                                           # 词向量维度
 ITER = 50                                            # 迭代次数
 ################################
 # 神经网络
@@ -265,6 +266,33 @@ def predict_documents(documents, model_type=LSTM):
     y = LABEL_ENCODER.inverse_transform(y.ravel())
     return y
 
+def metric():
+    '''
+    评估
+    '''
+    global SUBJECT
+    # 加载数据
+    dfs = loadData([os.path.join(SEG_DIR, "{}.csv".format(i)) for i in SUBJECT])
+    documents = dfs[common.CONTENT].values      # 取内容列
+    labels = dfs[common.SUBJECT].values         # 去标签列
+    # 划分训练集和测试集
+    documents_train, documents_test, y_train, y_test_labels = \
+        train_test_split(documents, labels, test_size=0.25, random_state=5)
+    SUBJECT = SUBJECT.tolist()
+    subject_index = {}
+    for i,sub in enumerate(SUBJECT):
+        subject_index[sub] = i
+    y_true = [ subject_index[y] for y in y_test_labels]
+
+    # 加载模型
+    load_model(LSTM)
+    y_predict_labels = predict_documents(documents_test)
+    y_predict =[ subject_index[y] for y in  y_predict_labels]
+    report = metrics.classification_report(y_true, y_predict, target_names=SUBJECT)
+    print(report)
+    print("平均准确率\n",metrics.accuracy_score(y_true, y_predict))
+    print("混淆矩阵\n", metrics.confusion_matrix(y_test_labels, y_predict_labels, labels=SUBJECT))
+
 def main(model_type):
     # 设定路径
     segs_path = [os.path.join(SEG_DIR, "{}.csv".format(i)) for i in SUBJECT]
@@ -305,6 +333,6 @@ def parse():
     return model_type
 
 if __name__ == '__main__':
-    model_type = parse()
-    main(model_type)
-    print(EPOCHS)
+    # model_type = parse()
+    # main(model_type)
+    metric()

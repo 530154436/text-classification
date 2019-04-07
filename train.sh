@@ -16,10 +16,17 @@
 #python3 -u main.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 250 --lstm_drop 0.2 --dense_num 100 --epochs 200 > logs/lstm9.log
 
 # lstm 失活率
-python3 -u main.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.4 --dense_num 100 --epochs 200 > logs/lstm6.log
-python3 -u main.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.0 --dense_num 100 --epochs 200 > logs/lstm7.log
+#python3 -u main.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.4 --dense_num 100 --epochs 200 > logs/lstm6.log
+#python3 -u main.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.0 --dense_num 100 --epochs 200 > logs/lstm7.log
 #python3 -u main.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.3 --dense_num 100 --epochs 200 > logs/lstm10.log
 #python3 -u main.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.1 --dense_num 100 --epochs 200 > logs/lstm11.log
+
+# dense 单元数
+python3 -u main.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.2 --dense_num 50 --epochs 200 > logs/lstm13.log
+python3 -u main.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.2 --dense_num 150 --epochs 200 > logs/lstm14.log
+python3 -u main.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.2 --dense_num 200 --epochs 200 > logs/lstm15.log
+python3 -u main.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.2 --dense_num 250 --epochs 200 > logs/lstm16.log
+
 
 # 不同神经网络模型
 #python3 -u main.py --model_type bilstm --sg 0 --size 200 --iter 50 --lstm_num 100 --lstm_drop 0.2 --dense_num 100 --epochs 200 > logs/lstm6.log

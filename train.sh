@@ -9,8 +9,8 @@
 #python3 -u main.py --model_type lstm --sg 0 --size 200 --iter 50 --lstm_num 100 --lstm_drop 0.2 --dense_num 100 --epochs 200 > logs/lstm3.log
 #python3 -u main.py --model_type lstm --sg 1 --size 100 --iter 50 --lstm_num 100 --lstm_drop 0.2 --dense_num 100 --epochs 200 > logs/lstm2.log
 
-## lstm 参数
-python3 -u main.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 50 --lstm_drop 0.2 --dense_num 100 --epochs 200 > logs/lstm4.log
+## lstm 单元数
+python3 -u main.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 50 --lstm_drop 0.2 --dense_num 100 --epochs 200 > logs/lstm12.log
 python3 -u main.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.2 --dense_num 100 --epochs 200 > logs/lstm4.log
 
 python3 -u main.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 200 --lstm_drop 0.2 --dense_num 100 --epochs 200 > logs/lstm5.log

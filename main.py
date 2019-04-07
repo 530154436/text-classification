@@ -333,6 +333,6 @@ def parse():
     return model_type
 
 if __name__ == '__main__':
-    # model_type = parse()
-    # main(model_type)
-    metric()
+    model_type = parse()
+    main(model_type)
+    # metric()

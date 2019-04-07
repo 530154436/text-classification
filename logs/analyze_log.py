@@ -3,11 +3,11 @@
 import os
 import re
 import numpy as np
-from data_collecting.common import BASE_DIR
+BASE_DIR = "/Users/zhengchubin/Desktop/text_classification/"
 COMPILER = re.compile('.+acc: (.+) -.+')
 
 '''
-    日志分析
+    日志分析-统计最后一次迭代的准确率
 '''
 
 for i in range(20):

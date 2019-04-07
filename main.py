@@ -334,5 +334,7 @@ def parse():
 
 if __name__ == '__main__':
     model_type = parse()
-    main(model_type)
-    # metric()
+    if model_type=='test':
+        metric()
+    else:
+        main(model_type)

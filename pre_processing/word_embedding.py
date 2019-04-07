@@ -21,7 +21,7 @@ def train_word2vec(seg_file, cpu_count=None, sg=0, size=300, window=5, min_count
     # 训练 skip-gram 模型
     model = word2vec.Word2Vec(LineSentence(seg_file), workers=cpu_count,
                      iter=iter, sg=sg, size=size, window=window, min_count=min_count)
-    model.wv.save_word2vec_format("vector.sg{}.size{}.iter{}.bin".format(sg, size, iter), binary=True)
+    model.wv.save_word2vec_format(os.path.join(MODEL_DIR, "vector.sg{}.size{}.iter{}.bin".format(sg, size, iter)), binary=True)
 
 def load_word2vec(model_path, binary=False):
     '''

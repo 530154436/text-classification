@@ -3,6 +3,7 @@
 import sys
 import os
 from data_collecting import common
+from config import CORPUS_DIR
 
 sys.path.insert(0, os.path.abspath(os.getcwd()+"/../"))
 sys.path.insert(0, os.path.abspath(os.getcwd()+"/../../"))
@@ -33,7 +34,7 @@ GRADE_URL = {
 }
 
 JIAO_AN = 'ja'
-SAVE_DIR = os.path.join(common.CORPUS_DIR, JIAO_AN)
+SAVE_DIR = os.path.join(CORPUS_DIR, JIAO_AN)
 
 # 全局统计量
 COUNT = 0

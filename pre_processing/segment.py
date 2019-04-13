@@ -6,13 +6,13 @@ import zhconv
 from gensim.corpora import WikiCorpus
 from utility.reader.CSVReader import CSVReader
 from utility.writer.CSVWriter import CSVWriter
-from data_collecting.common import logger,CORPUS_DIR,SEG_DIR
+from config import logger,CORPUS_DIR,SEG_DIR
 
 CHINES_CHARSETS = ["\u200b","\u2000","\u206F","\u2E00","\u2E7F","\u3000",'\u3000'
                    "\u303F","\uff01","\uff02","\uff08","\uff09","\uff0c",'\xa0'
                    "\uff0e","\uff0f","\uff1a","\uff1b","\uff1f","\u0020","\u00BF"]
 GRADE = '年级'
-SUBJECT = '科目'
+SUBJECTS = '科目'
 TITLE = '标题'
 CONTENT = '内容'
 DOC_URL = 'URL'
@@ -94,7 +94,7 @@ def seg_corpus():
             print(file_path)
             for document in documents:
                 content = document[CONTENT]
-                subject = document[SUBJECT]
+                subject = document[SUBJECTS]
                 title = document[TITLE]
 
                 # 部分content为空，调用java-TutorialContentExtractor
@@ -105,8 +105,8 @@ def seg_corpus():
 
                 if subject not in segs:
                     segs[subject] = []
-                segs[subject].append({TITLE:' '.join(seg_tilte), CONTENT:' '.join(seg_content), SUBJECT:subject})
-    Headers = [SUBJECT, TITLE, CONTENT]
+                segs[subject].append({TITLE:' '.join(seg_tilte), CONTENT:' '.join(seg_content), SUBJECTS:subject})
+    Headers = [SUBJECTS, TITLE, CONTENT]
     for subject in segs.keys():
         path = os.path.join(SEG_DIR, '{}.csv'.format(subject))
         save2csv(path, Headers, segs[subject])

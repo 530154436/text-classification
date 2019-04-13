@@ -5,8 +5,7 @@ import matplotlib.pyplot as plt
 plt.style.use('ggplot')
 
 class RNN(object):
-    def __init__(self, embedding_matrix, class_num=9):
-        self.embedding_matrix = embedding_matrix
+    def __init__(self, class_num=9):
         self.class_num = class_num
 
     def get_keras_embedding(self, max_sequence_length, word2vec, train_embeddings=False):

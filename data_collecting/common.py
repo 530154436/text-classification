@@ -3,8 +3,8 @@
 import sys
 import os
 import re
-import logging
 import requests
+from config import GRADE,SUBJECT,TITLE, DOC_URL,CONTENT
 from lxml import etree
 from utility.writer import CSVWriter
 
@@ -12,22 +12,7 @@ sys.path.insert(0, os.path.abspath(os.getcwd()+"/../"))
 sys.path.insert(0, os.path.abspath(os.getcwd()+"/../../"))
 
 BASE_URL = 'http://www.teachercn.com'
-# BASE_DIR = "/Users/zhengchubin/Desktop/text_classification/"
-BASE_DIR = "/home/ai/text_classification/"
-
-CORPUS_DIR = os.path.join(BASE_DIR, 'corpus')
-SEG_DIR = os.path.join(BASE_DIR, 'seg')
-MODEL_DIR = os.path.join(BASE_DIR, 'model')
-GRADE = '年级'
-SUBJECT = '科目'
-TITLE = '标题'
-CONTENT = '内容'
-DOC_URL = 'URL'
-
-# 得到文件名
-logger = logging.getLogger()
-logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s')
-logging.root.setLevel(level=logging.INFO)
+# http://zsd.jzb.com/ja/p104c129/?pg=20
 
 # 正则-去掉特殊字符
 COMPILER = re.compile('[\u3000\xa0]')

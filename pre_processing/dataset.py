@@ -1,5 +1,6 @@
 # /usr/bin/env python3
 # -*- coding:utf-8 -*-
+import os
 import pandas as pd
 import numpy as np
 import config
@@ -7,21 +8,40 @@ from keras.preprocessing.text import Tokenizer
 from sklearn.preprocessing import OneHotEncoder,LabelEncoder
 from sklearn.model_selection import train_test_split
 from keras.preprocessing.sequence import pad_sequences
-from config import logger,CONTENT,SUBJECT,SUBJECTS,MAX_SEQUENCE_LEN,TOKENIZER
+from config import logger,CONTENT,SUBJECT,SUBJECTS,MAX_SEQUENCE_LEN
 from pre_processing import word_embedding
 
-def loadData(segs_paths, sample_num=195):
+def loadData(segs_paths, sample_num=None):
     '''
     加载原始数据
     '''
     frames = []
+    # 计算最小的语料数量
+    min_sample_num = 1000000
+    for path in segs_paths:
+        df = pd.read_csv(path)
+        if min_sample_num > df.shape[0]:
+            min_sample_num = df.shape[0]
+    logger.info("min_sample_num = {}".format(min_sample_num))
+
+    if sample_num != None and sample_num > min_sample_num:
+        logger.error("参数 sample_num 大于已有的语料规模.")
+        raise EnvironmentError("参数 sample_num 大于已有的语料规模.")
+
     for path in segs_paths:
         df = pd.read_csv(path)
         logger.info("Reading {}. Total articles: {}.".format(path, df.shape[0]))
         # frames.append(df.sample(n=sample_num))
-        frames.append(df[:sample_num])
+        if sample_num:
+            frames.append(df[:sample_num])
+        else:
+            frames.append(df)
         df.dropna()
     dfs = pd.concat(frames)
+
+    # 统计语料
+    logger.info("读取预料统计")
+    logger.info(str(dfs[config.SUBJECT].value_counts()).replace('    ', '=').replace('\n', '、'))
     return dfs
 
 def splitData(dfs, test_size=0.25):
@@ -38,7 +58,7 @@ def splitData(dfs, test_size=0.25):
 
     return x_train, x_test, y_train, y_test
 
-def encode_data(x_train, x_test, y_train, y_test):
+def encode_data(x_train, x_test, y_train, y_test, model_instance=None):
     # 对标签进行编码
     LABEL_ENCODER = LabelEncoder()
     label_en = LABEL_ENCODER.fit(SUBJECTS)
@@ -71,18 +91,19 @@ def encode_data(x_train, x_test, y_train, y_test):
     logger.info("补齐序列完成.")
 
     # 赋值
-    config.TOKENIZER = TOKENIZER
-    config.LABEL_ENCODER = LABEL_ENCODER
-    config.ONE_HOT_ENCODER = ONE_HOT_ENCODER
+    if model_instance:
+        model_instance.TOKENIZER = TOKENIZER
+        model_instance.LABEL_ENCODER = LABEL_ENCODER
+        model_instance.ONE_HOT_ENCODER = ONE_HOT_ENCODER
 
     return X_train, X_test, Y_train, Y_test
 
-def create_embedding_matrix(word2vec_path, binary=True):
+def create_embedding_matrix(word2vec_path, binary=True, model_instance=None):
     '''
     利用预训练的 word2vec 创建嵌入矩阵
     '''
     logger.info("创建词嵌入矩阵...")
-    vocab_size = len(TOKENIZER.word_index) + 1  # Adding 1 because of reserved 0 index
+    vocab_size = len(model_instance.TOKENIZER.word_index) + 1  # Adding 1 because of reserved 0 index
     word2vec = word_embedding.load_word2vec(word2vec_path, binary)
     embedding_dim = -1
     if word2vec:
@@ -91,13 +112,16 @@ def create_embedding_matrix(word2vec_path, binary=True):
         logger.info("word2vec 为空.")
 
     EMBEDDING_MATRIX = np.zeros((vocab_size, embedding_dim))
-    for word, i in TOKENIZER.word_index.items():
+    for word, i in model_instance.TOKENIZER.word_index.items():
         if word in word2vec.vocab:
             EMBEDDING_MATRIX[i] = word2vec.word_vec(word)
 
     # 赋值
-    config.EMBEDDING_MATRIX = EMBEDDING_MATRIX
+    if model_instance:
+        model_instance.EMBEDDING_MATRIX = EMBEDDING_MATRIX
 
     logger.info("词嵌入矩阵创建完成. Shape ({},{})".format(vocab_size, embedding_dim))
 
-
+if __name__ == '__main__':
+    segs_path = [os.path.join(config.SEG_DIR, "{}.csv".format(i)) for i in SUBJECTS]
+    loadData(segs_path, sample_num=500)

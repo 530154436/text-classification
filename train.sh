@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 # 训练词向量
+python3 -u train_word2vec.py --sg 0 --size 150 --iter 50 --num_cores 20 > logs/word2vec.log
+
+# 语料数量
+python3 -u train_lstm.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.2 --dense_num 100 --epochs 200 --sample_num 500 > logs/lstm17.log
+python3 -u train_lstm.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.2 --dense_num 100 --epochs 200 --sample_num 1000 > logs/lstm18.log
+python3 -u train_lstm.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.2 --dense_num 100 --epochs 200 --sample_num 1500 > logs/lstm19.log
+python3 -u train_lstm.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.2 --dense_num 100 --epochs 200 --sample_num 2000 > logs/lstm20.log
 
 # 词向量对比
 #python3 -u train_lstm.py --model_type lstm --sg 0 --size 50 --iter 50 --lstm_num 100 --lstm_drop 0.2 --dense_num 100 --epochs 200 > logs/lstm0.log
@@ -21,11 +28,10 @@
 #python3 -u train_lstm.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.1 --dense_num 100 --epochs 200 > logs/lstm11.log
 
 # dense 单元数
-python3 -u train_lstm.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.2 --dense_num 50 --epochs 200 > logs/lstm13.log
-python3 -u train_lstm.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.2 --dense_num 150 --epochs 200 > logs/lstm14.log
-python3 -u train_lstm.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.2 --dense_num 200 --epochs 200 > logs/lstm15.log
-python3 -u train_lstm.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.2 --dense_num 250 --epochs 200 > logs/lstm16.log
-
+#python3 -u train_lstm.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.2 --dense_num 50 --epochs 200 > logs/lstm13.log
+#python3 -u train_lstm.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.2 --dense_num 150 --epochs 200 > logs/lstm14.log
+#python3 -u train_lstm.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.2 --dense_num 200 --epochs 200 > logs/lstm15.log
+#python3 -u train_lstm.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.2 --dense_num 250 --epochs 200 > logs/lstm16.log
 
 # 不同神经网络模型
 #python3 -u train_lstm.py --model_type bilstm --sg 0 --size 200 --iter 50 --lstm_num 100 --lstm_drop 0.2 --dense_num 100 --epochs 200 > logs/lstm6.log

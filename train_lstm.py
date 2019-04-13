@@ -9,7 +9,7 @@ from keras.callbacks import TensorBoard
 from model.LSTM import TextRNN_LSTM
 from pre_processing.dataset import loadData, splitData, encode_data, create_embedding_matrix
 from config import SG,SIZE,ITER,NUM_CORES,BATCH_SIZE,MAX_SEQUENCE_LEN,LSTM_NUM,LSTM_DROP,DENSE_NUM,EPOCHS, \
-                   SEG_DIR, MODEL_DIR, BI_LSTM, LSTM, CLASS_NUM, SUBJECTS
+                   SEG_DIR, MODEL_DIR, CLASS_NUM, SUBJECTS
 
 import config
 
@@ -24,17 +24,19 @@ K.set_session(session)
 ####################################################################
 
 def train(model_type, segs_path, word2vec_path):
+    text_rnn = TextRNN_LSTM(class_num=CLASS_NUM)
+
     # 1. 加载数据集
-    dfs = loadData(segs_path)
+    dfs = loadData(segs_path,sample_num=config.SAMPLE_NUM)
 
     # 2. 划分数据集
     x_train, x_test, y_train, y_test = splitData(dfs)
 
     # 3. 对数据集和标签进行编码
-    X_train, X_test, Y_train, Y_test = encode_data(x_train, x_test, y_train, y_test)
+    X_train, X_test, Y_train, Y_test = encode_data(x_train, x_test, y_train, y_test, model_instance=text_rnn)
 
     # 4. 创建嵌入矩阵
-    create_embedding_matrix(word2vec_path, binary=True)
+    create_embedding_matrix(word2vec_path, binary=True, model_instance=text_rnn)
 
     # 5. 训练神经网络
     # 监听最优模型
@@ -57,32 +59,16 @@ def train(model_type, segs_path, word2vec_path):
                      embeddings_layer_names=None,
                      embeddings_metadata=None)
 
-    if model_type == LSTM:
-        # 网络结构、目标函数设置
-        text_rnn = TextRNN_LSTM(class_num=CLASS_NUM)
-        RNN_MODEL = text_rnn.get_model(embedding_matrix=config.EMBEDDING_MATRIX,
-                                       max_sequence_length=MAX_SEQUENCE_LEN,
-                                       lstm_drop=LSTM_DROP,
-                                       lstm_num=LSTM_NUM,
-                                       dense_num=DENSE_NUM,
-                                       last_activation='softmax',
-                                       loss='categorical_crossentropy',
-                                       metrics=('accuracy', 'categorical_accuracy')
-                                       )
-
-        RNN_MODEL.fit(X_train, Y_train,
-              batch_size=BATCH_SIZE,                            # 随机梯度下降批大小
-              epochs=EPOCHS,                                    # 迭代次数
-              shuffle=True,                                     # 是否打乱数据集
-              validation_data=(X_test, Y_test),                 # 验证集
-              callbacks=[model_checkpoint, tb])
-
-        text_rnn.save_model()
-
-    elif model_type == BI_LSTM:
-        pass
-
-
+    # 网络结构、目标函数设置
+    text_rnn.set_model(max_sequence_length=MAX_SEQUENCE_LEN,
+                      lstm_drop=LSTM_DROP,
+                      lstm_num=LSTM_NUM,
+                      dense_num=DENSE_NUM,
+                      last_activation='softmax',
+                      loss='categorical_crossentropy',
+                      metrics=('accuracy', 'categorical_accuracy')
+                    )
+    text_rnn.train(X_train,Y_train,X_test,Y_test, BATCH_SIZE, EPOCHS, model_checkpoint,tb)
 
 def main(model_type):
     # 设定路径
@@ -110,6 +96,10 @@ def parse():
     parser.add_argument("--dense_num", dest='DENSE_NUM', required=True, type=int)
     parser.add_argument("--epochs", dest='EPOCHS', required=True, type=int)
     parser.add_argument("--model_type", dest='model_type', required=True, type=str)
+
+    # 语料数量
+    parser.add_argument("--sample_num", dest='SAMPLE_NUM', required=False, type=int)
+
     args = parser.parse_args()
     config.SG = args.SG
     config.SIZE = args.SIZE
@@ -126,6 +116,8 @@ def parse():
         config.WINDOW = args.WINDOW
     if args.MIN_COUNT:
         config.MIN_COUNT = args.MIN_COUNT
+    if args.SAMPLE_NUM:
+        config.SAMPLE_NUM = args.SAMPLE_NUM
 
     return model_type
 

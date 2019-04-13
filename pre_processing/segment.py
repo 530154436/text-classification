@@ -3,17 +3,20 @@
 import jieba
 import os
 import zhconv
+import pandas as pd
 from gensim.corpora import WikiCorpus
 from utility.reader.CSVReader import CSVReader
 from utility.writer.CSVWriter import CSVWriter
 from utility.log_util import  logger
+from utility import pandas_util
 from config import logger,CORPUS_DIR,SEG_DIR
+import config
 
 CHINES_CHARSETS = ["\u200b","\u2000","\u206F","\u2E00","\u2E7F","\u3000",'\u3000'
                    "\u303F","\uff01","\uff02","\uff08","\uff09","\uff0c",'\xa0'
                    "\uff0e","\uff0f","\uff1a","\uff1b","\uff1f","\u0020","\u00BF"]
 GRADE = '年级'
-SUBJECTS = '科目'
+SUBJECT = '科目'
 TITLE = '标题'
 CONTENT = '内容'
 DOC_URL = 'URL'
@@ -96,7 +99,7 @@ def seg_corpus():
             for document in documents:
                 count += 1
                 content = document[CONTENT]
-                subject = document[SUBJECTS]
+                subject = document[SUBJECT]
                 title = document[TITLE]
 
                 # 部分content为空，调用java-TutorialContentExtractor
@@ -110,12 +113,26 @@ def seg_corpus():
 
                 if subject not in segs:
                     segs[subject] = []
-                segs[subject].append({TITLE:' '.join(seg_tilte), CONTENT:' '.join(seg_content), SUBJECTS:subject})
-    Headers = [SUBJECTS, TITLE, CONTENT]
+                segs[subject].append({TITLE:' '.join(seg_tilte), CONTENT:' '.join(seg_content), SUBJECT:subject})
+    Headers = [SUBJECT, TITLE, CONTENT]
     for subject in segs.keys():
         path = os.path.join(SEG_DIR, '{}.csv'.format(subject))
         save2csv(path, Headers, segs[subject])
 
+def save2txt():
+    segs_path = [os.path.join(SEG_DIR, "{}.csv".format(i)) for i in config.SUBJECTS]
+    with open(os.path.join(SEG_DIR,'seg.txt'), 'w') as f:
+        df = []
+        for seg in segs_path:
+            print(seg)
+            seg_df = pandas_util.readCsv2PdByChunkSize(seg, [CONTENT])
+            df.append(seg_df)
+        pd_concat = pd.concat(df)
+        for i in pd_concat[CONTENT]:
+            f.write(i)
+            f.write('\n')
+
 if __name__ == '__main__':
-    seg_corpus()
+    # seg_corpus()
+    save2txt()
     # seg_wiki_cn()

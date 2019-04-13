@@ -34,10 +34,10 @@ CLASS_NUM = len(SUBJECTS)
 ################################
 # word2vec
 SG = 0                                               # 算法模型 0:"cbow";1:"skg"
-SIZE = 100                                           # 词向量维度
+SIZE = 150                                           # 词向量维度
 ITER = 50                                            # 迭代次数
 WINDOW = 5                                           # 窗口
-MIN_COUNT = 5                                        # 最小词频
+MIN_COUNT = 3                                        # 最小词频
 ################################
 # 神经网络
 LSTM = 'lstm'
@@ -47,15 +47,10 @@ MAX_SEQUENCE_LEN = 1000                              # 序列最长长度
 BATCH_SIZE = 32                                      # 批大小
 EPOCHS = 5                                           # 迭代次数
 LSTM_DROP = 0.2                                      # LSTM 丢掉率
-LSTM_NUM = 100                                       # LSTM 单元数
+LSTM_NUM = 150                                       # LSTM 单元数
 DENSE_NUM = 100                                      # DENSE 单元数
+SAMPLE_NUM = None                                    # 语料数量
 
 # 训练参数
 NUM_CORES = 8
 ################################
-# 模型保存
-TOKENIZER = None
-LABEL_ENCODER = None
-ONE_HOT_ENCODER = None
-EMBEDDING_MATRIX = None
-RNN_MODEL = None

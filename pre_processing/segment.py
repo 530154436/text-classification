@@ -6,6 +6,7 @@ import zhconv
 from gensim.corpora import WikiCorpus
 from utility.reader.CSVReader import CSVReader
 from utility.writer.CSVWriter import CSVWriter
+from utility.log_util import  logger
 from config import logger,CORPUS_DIR,SEG_DIR
 
 CHINES_CHARSETS = ["\u200b","\u2000","\u206F","\u2E00","\u2E7F","\u3000",'\u3000'
@@ -79,8 +80,9 @@ def seg_wiki_cn():
 def seg_corpus():
     segs = {}
     types = os.listdir(CORPUS_DIR)
+    count = 0
     for cate in types:
-        if cate not in ['ja', 'lw']:
+        if cate not in ['ja', 'lw', 'extend']:
             continue
         dir_name = os.path.join(CORPUS_DIR, cate)
         if os.path.isfile(dir_name): continue
@@ -91,8 +93,8 @@ def seg_corpus():
             file_path = os.path.join(dir_name, file)
             documents = load_from_csv(file_path)
 
-            print(file_path)
             for document in documents:
+                count += 1
                 content = document[CONTENT]
                 subject = document[SUBJECTS]
                 title = document[TITLE]
@@ -103,6 +105,9 @@ def seg_corpus():
 
                 if not seg_content or len(seg_content) < 10: continue
 
+                if count % 100==0:
+                    logger.info("分词中 {}: {}".format(file_path, count))
+
                 if subject not in segs:
                     segs[subject] = []
                 segs[subject].append({TITLE:' '.join(seg_tilte), CONTENT:' '.join(seg_content), SUBJECTS:subject})
@@ -112,5 +117,5 @@ def seg_corpus():
         save2csv(path, Headers, segs[subject])
 
 if __name__ == '__main__':
-    # seg_corpus()
-    seg_wiki_cn()
+    seg_corpus()
+    # seg_wiki_cn()

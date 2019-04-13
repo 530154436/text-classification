@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 import csv
-import sys
 csv.field_size_limit(100000000)
 
 class CSVReader:

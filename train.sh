@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # 训练词向量
-python3 -u train_word2vec.py --sg 0 --size 150 --iter 50 --num_cores 20 > logs/word2vec.log
+python3 -u train_word2vec.py --sg 0 --size 150 --iter 50 --num_cores 24 > logs/word2vec.log
 
 # 语料数量
 python3 -u train_lstm.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.2 --dense_num 100 --epochs 200 --sample_num 500 --num_cores 16 > logs/lstm17.log

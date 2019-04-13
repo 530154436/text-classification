@@ -101,6 +101,7 @@ def seg_corpus():
                 content = document[CONTENT]
                 subject = document[SUBJECT]
                 title = document[TITLE]
+                url = document[DOC_URL]
 
                 # 部分content为空，调用java-TutorialContentExtractor
                 seg_content = seg_sentence(content)
@@ -113,11 +114,23 @@ def seg_corpus():
 
                 if subject not in segs:
                     segs[subject] = []
-                segs[subject].append({TITLE:' '.join(seg_tilte), CONTENT:' '.join(seg_content), SUBJECT:subject})
-    Headers = [SUBJECT, TITLE, CONTENT]
+                segs[subject].append({TITLE:' '.join(seg_tilte), CONTENT:' '.join(seg_content), SUBJECT:subject, DOC_URL:url})
+    Headers = [SUBJECT, TITLE, CONTENT, DOC_URL]
     for subject in segs.keys():
         path = os.path.join(SEG_DIR, '{}.csv'.format(subject))
         save2csv(path, Headers, segs[subject])
+    save2txt()
+
+def dropDuplicate():
+    '''
+    去掉重复行
+    '''
+    senior = os.path.join(CORPUS_DIR, 'extend/初中.csv')
+    df = pd.read_csv(senior)
+    print(df)
+    df = df.drop_duplicates(subset=['url'], keep='first')
+    df.to_csv(os.path.join(CORPUS_DIR, 'extend/初中_unique.csv'), index=False)
+    print(df)
 
 def save2txt():
     segs_path = [os.path.join(SEG_DIR, "{}.csv".format(i)) for i in config.SUBJECTS]
@@ -133,6 +146,6 @@ def save2txt():
             f.write('\n')
 
 if __name__ == '__main__':
-    # seg_corpus()
-    save2txt()
+    seg_corpus()
     # seg_wiki_cn()
+    # dropDuplicate()

@@ -38,6 +38,7 @@ def loadData(segs_paths, sample_num=None):
             frames.append(df)
         df.dropna()
     dfs = pd.concat(frames)
+    # dfs[CONTENT] = dfs.apply(func=lambda x:x[CONTENT].replace(x[SUBJECT], ''), axis=1)
 
     # 统计语料
     logger.info("读取预料统计")

@@ -24,14 +24,6 @@ embedding_matrix_path = os.path.join(MODEL_DIR, 'embedding_matrix.pickle')
 lstm_save_path = os.path.join(MODEL_DIR,'vsg{}.vs{}.vi{}.ln{}.dn{}.ld{}.{}.h5'.format(
     config.SG, config.SIZE, config.ITER, config.LSTM_NUM, config.DENSE_NUM, config.LSTM_DROP, config.LSTM))
 
-if config.SAMPLE_NUM:
-    label_save_path = os.path.join(MODEL_DIR, 'label_encoder.sn{}.pickle'.format(config.SAMPLE_NUM))
-    one_hot_save_path = os.path.join(MODEL_DIR, 'one_hot_encoder.sn{}.pickle'.format(config.SAMPLE_NUM))
-    tokenizer_save_path = os.path.join(MODEL_DIR, 'text_tokenizer.sn{}.pickle'.format(config.SAMPLE_NUM))
-    embedding_matrix_path = os.path.join(MODEL_DIR, 'embedding_matrix.sn{}.pickle'.format(config.SAMPLE_NUM))
-    lstm_save_path = os.path.join(MODEL_DIR, 'vsg{}.vs{}.vi{}.ln{}.dn{}.ld{}.{}.sn{}.h5'.format(
-        config.SG, config.SIZE, config.ITER, config.LSTM_NUM, config.DENSE_NUM, config.LSTM_DROP, config.LSTM,config.SAMPLE_NUM))
-
 class TextRNN_LSTM(RNN):
     def __init__(self,
                  class_num=9,
@@ -87,6 +79,7 @@ class TextRNN_LSTM(RNN):
         return model
 
     def train(self, X_train, Y_train,X_test,Y_test, BATCH_SIZE, EPOCHS, model_checkpoint,tb):
+        print(EPOCHS)
         self.RNN_MODEL.fit(X_train, Y_train,
                       batch_size=BATCH_SIZE,  # 随机梯度下降批大小
                       epochs=EPOCHS,  # 迭代次数
@@ -134,7 +127,19 @@ class TextRNN_LSTM(RNN):
         y = self.LABEL_ENCODER.inverse_transform(y.ravel())
         return y
 
+    def check(self):
+        global label_save_path,one_hot_save_path,tokenizer_save_path,embedding_matrix_path,lstm_save_path
+        if config.SAMPLE_NUM:
+            label_save_path = os.path.join(MODEL_DIR, 'label_encoder.sn{}.pickle'.format(config.SAMPLE_NUM))
+            one_hot_save_path = os.path.join(MODEL_DIR, 'one_hot_encoder.sn{}.pickle'.format(config.SAMPLE_NUM))
+            tokenizer_save_path = os.path.join(MODEL_DIR, 'text_tokenizer.sn{}.pickle'.format(config.SAMPLE_NUM))
+            embedding_matrix_path = os.path.join(MODEL_DIR, 'embedding_matrix.sn{}.pickle'.format(config.SAMPLE_NUM))
+            lstm_save_path = os.path.join(MODEL_DIR, 'vsg{}.vs{}.vi{}.ln{}.dn{}.ld{}.{}.sn{}.h5'.format(
+                config.SG, config.SIZE, config.ITER, config.LSTM_NUM, config.DENSE_NUM, config.LSTM_DROP, config.LSTM,
+                config.SAMPLE_NUM))
+
     def load_model(self):
+        self.check()
         # 读取 LabelEncoder、OneHotEncoder、Tokenizer、embedding_matrix、lstm
         with open(label_save_path, 'rb') as f: self.LABEL_ENCODER = pickle.load(f)
         logger.info(load_log_pattern.format(label_save_path))
@@ -152,6 +157,7 @@ class TextRNN_LSTM(RNN):
         logger.info(load_log_pattern.format(lstm_save_path))
 
     def save_model(self):
+        self.check()
         # 保存 LabelEncoder、OneHotEncoder、Tokenizer、embedding_matrix
         with open(label_save_path, 'wb') as f: pickle.dump(self.LABEL_ENCODER, f)
         logger.info(save_log_pattern.format(label_save_path))

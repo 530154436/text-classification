@@ -8,7 +8,7 @@ GRADE = '年级'
 SUBJECT = '科目'
 TITLE = '标题'
 CONTENT = '内容'
-DOC_URL = 'url'
+DOC_URL = 'URL'
 
 subject_id = {
     "c129":"政治",

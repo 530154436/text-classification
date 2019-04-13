@@ -7,11 +7,10 @@ from pre_processing import dataset
 segs_path = [os.path.join(SEG_DIR, "{}.csv".format(i)) for i in SUBJECTS]
 
 # 1. 加载数据集
-dfs = dataset.loadData(segs_path)
+dfs = dataset.loadData(segs_path, sample_num=1500)
 
 # 2. 划分数据集
-X_train, X_test, y_train, y_test = dataset.splitData(dfs)
-
+x_train, x_test, y_train, y_test = dataset.splitData(dfs)
 
 # 从sklearn.feature_extraction.text里导入CountVectorizer
 from sklearn.feature_extraction.text import CountVectorizer,TfidfVectorizer
@@ -19,11 +18,12 @@ from sklearn.feature_extraction.text import CountVectorizer,TfidfVectorizer
 count_vec = CountVectorizer()
 
 # 只使用词频统计的方式将原始训练和测试文本转化为特征向量。
-X_count_train = count_vec.fit_transform(X_train)
-X_count_test = count_vec.transform(X_test)
+X_count_train = count_vec.fit_transform(x_train)
+X_count_test = count_vec.transform(x_test)
 
 # 从sklearn.naive_bayes里导入朴素贝叶斯分类器。
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.linear_model import LogisticRegression
 # 使用默认的配置对分类器进行初始化。
 mnb_count = MultinomialNB()
 # 使用朴素贝叶斯分类器，对CountVectorizer（不去除停用词）后的训练样本进行参数学习。
@@ -45,21 +45,23 @@ print (classification_report(y_test, y_count_predict))
 count_filter_vec, tfidf_filter_vec = CountVectorizer(analyzer='word', stop_words='english'), TfidfVectorizer(analyzer='word', stop_words='english')
 
 # 使用带有停用词过滤的CountVectorizer对训练和测试文本分别进行量化处理。
-X_count_filter_train = count_filter_vec.fit_transform(X_train)
-X_count_filter_test = count_filter_vec.transform(X_test)
+X_count_filter_train = count_filter_vec.fit_transform(x_train)
+X_count_filter_test = count_filter_vec.transform(x_test)
 
 # 使用带有停用词过滤的TfidfVectorizer对训练和测试文本分别进行量化处理。
-X_tfidf_filter_train = tfidf_filter_vec.fit_transform(X_train)
-X_tfidf_filter_test = tfidf_filter_vec.transform(X_test)
+X_tfidf_filter_train = tfidf_filter_vec.fit_transform(x_train)
+X_tfidf_filter_test = tfidf_filter_vec.transform(x_test)
 
 # 初始化默认配置的朴素贝叶斯分类器，并对CountVectorizer后的数据进行预测与准确性评估。
 mnb_count_filter = MultinomialNB()
+# mnb_count_filter = LogisticRegression()
 mnb_count_filter.fit(X_count_filter_train, y_train)
 print ('The accuracy of classifying 20newsgroups using Naive Bayes (CountVectorizer by filtering stopwords):', mnb_count_filter.score(X_count_filter_test, y_test))
 y_count_filter_predict = mnb_count_filter.predict(X_count_filter_test)
 
 # 初始化另一个默认配置的朴素贝叶斯分类器，并对TfidfVectorizer后的数据进行预测与准确性评估。
 mnb_tfidf_filter = MultinomialNB()
+# mnb_tfidf_filter = LogisticRegression()
 mnb_tfidf_filter.fit(X_tfidf_filter_train, y_train)
 print('The accuracy of classifying 20newsgroups with Naive Bayes (TfidfVectorizer by filtering stopwords):', mnb_tfidf_filter.score(X_tfidf_filter_test, y_test))
 y_tfidf_filter_predict = mnb_tfidf_filter.predict(X_tfidf_filter_test)

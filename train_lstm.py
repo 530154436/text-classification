@@ -8,17 +8,16 @@ from keras import backend as K
 from keras.callbacks import TensorBoard
 from model.LSTM import TextRNN_LSTM
 from pre_processing.dataset import loadData, splitData, encode_data, create_embedding_matrix
-from config import SG,SIZE,ITER,NUM_CORES,BATCH_SIZE,MAX_SEQUENCE_LEN,LSTM_NUM,LSTM_DROP,DENSE_NUM,EPOCHS, \
-                   SEG_DIR, MODEL_DIR, CLASS_NUM, SUBJECTS
+from config import MAX_SEQUENCE_LEN,SEG_DIR, MODEL_DIR, CLASS_NUM, SUBJECTS
 
 import config
 
 ####################################################################
 # cpu 核数设置
-lstm_config = tf.ConfigProto(intra_op_parallelism_threads=NUM_CORES,
-                        inter_op_parallelism_threads=NUM_CORES,
+lstm_config = tf.ConfigProto(intra_op_parallelism_threads=config.NUM_CORES,
+                        inter_op_parallelism_threads=config.NUM_CORES,
                         allow_soft_placement=True,
-                        device_count = {'CPU' : NUM_CORES})
+                        device_count = {'CPU' : config.NUM_CORES})
 session = tf.Session(config=lstm_config)
 K.set_session(session)
 ####################################################################
@@ -42,7 +41,8 @@ def train(model_type, segs_path, word2vec_path):
     # 监听最优模型
     bst_model_path = os.path.join(
         MODEL_DIR,
-        'vsg{}.vs{}.vi{}.ln{}.dn{}.ld{}.{}.check_point'.format(SG, SIZE, ITER, LSTM_NUM, DENSE_NUM, LSTM_DROP, model_type))
+        'vsg{}.vs{}.vi{}.ln{}.dn{}.ld{}.{}.check_point'.format(
+            config.SG, config.SIZE, config.ITER, config.LSTM_NUM, config.DENSE_NUM, config.LSTM_DROP, model_type))
     # 当监测值不再改善时，该回调函数将中止训练
     # early_stopping = EarlyStopping(monitor='val_loss', patience=3)
     # 该回调函数将在每个epoch后保存模型到 bst_model_path
@@ -51,7 +51,7 @@ def train(model_type, segs_path, word2vec_path):
     # 可视化
     tb = TensorBoard(log_dir='./logs',      # graph 目录
                      histogram_freq=1,       # 按照何等频率（epoch）来计算直方图，0为不计算
-                     batch_size=BATCH_SIZE,  # 用多大量的数据计算直方图
+                     batch_size=config.BATCH_SIZE,  # 用多大量的数据计算直方图
                      write_graph=False,      # 是否存储网络结构图
                      write_grads=False,      # 是否可视化梯度直方图
                      write_images=False,     # 是否可视化参数
@@ -61,19 +61,19 @@ def train(model_type, segs_path, word2vec_path):
 
     # 网络结构、目标函数设置
     text_rnn.set_model(max_sequence_length=MAX_SEQUENCE_LEN,
-                      lstm_drop=LSTM_DROP,
-                      lstm_num=LSTM_NUM,
-                      dense_num=DENSE_NUM,
+                      lstm_drop=config.LSTM_DROP,
+                      lstm_num=config.LSTM_NUM,
+                      dense_num=config.DENSE_NUM,
                       last_activation='softmax',
                       loss='categorical_crossentropy',
                       metrics=('accuracy', 'categorical_accuracy')
                     )
-    text_rnn.train(X_train,Y_train,X_test,Y_test, BATCH_SIZE, EPOCHS, model_checkpoint,tb)
+    text_rnn.train(X_train,Y_train,X_test,Y_test, config.BATCH_SIZE, config.EPOCHS, model_checkpoint,tb)
 
 def main(model_type):
     # 设定路径
     segs_path = [os.path.join(SEG_DIR, "{}.csv".format(i)) for i in SUBJECTS]
-    word2vec_path = os.path.join(MODEL_DIR, "vector.sg{}.size{}.iter{}.bin".format(SG, SIZE, ITER))
+    word2vec_path = os.path.join(MODEL_DIR, "vector.sg{}.size{}.iter{}.bin".format(config.SG, config.SIZE, config.ITER))
     train(model_type, segs_path, word2vec_path)
 
 def parse():

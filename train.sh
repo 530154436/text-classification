@@ -3,10 +3,10 @@
 python3 -u train_word2vec.py --sg 0 --size 150 --iter 50 --num_cores 20 > logs/word2vec.log
 
 # 语料数量
-python3 -u train_lstm.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.2 --dense_num 100 --epochs 200 --sample_num 500 > logs/lstm17.log
-python3 -u train_lstm.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.2 --dense_num 100 --epochs 200 --sample_num 1000 > logs/lstm18.log
-python3 -u train_lstm.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.2 --dense_num 100 --epochs 200 --sample_num 1500 > logs/lstm19.log
-python3 -u train_lstm.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.2 --dense_num 100 --epochs 200 --sample_num 2000 > logs/lstm20.log
+python3 -u train_lstm.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.2 --dense_num 100 --epochs 200 --sample_num 500 --num_cores 16 > logs/lstm17.log
+python3 -u train_lstm.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.2 --dense_num 100 --epochs 200 --sample_num 1000 --num_cores 16 > logs/lstm18.log
+python3 -u train_lstm.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.2 --dense_num 100 --epochs 200 --sample_num 1500 --num_cores 16 > logs/lstm19.log
+python3 -u train_lstm.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.2 --dense_num 100 --epochs 200 --sample_num 2000 --num_cores 16 > logs/lstm20.log
 
 # 词向量对比
 #python3 -u train_lstm.py --model_type lstm --sg 0 --size 50 --iter 50 --lstm_num 100 --lstm_drop 0.2 --dense_num 100 --epochs 200 > logs/lstm0.log

@@ -52,5 +52,5 @@ DENSE_NUM = 100                                      # DENSE 单元数
 SAMPLE_NUM = None                                    # 语料数量
 
 # 训练参数
-NUM_CORES = 8
+NUM_CORES = 16
 ################################

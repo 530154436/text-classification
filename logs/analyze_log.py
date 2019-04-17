@@ -5,6 +5,7 @@ import re
 import numpy as np
 BASE_DIR = "/Users/zhengchubin/Desktop/text_classification/"
 COMPILER = re.compile('.+acc: (.+) -.+')
+ECHO = re.compile('Epoch ([0-9]+)/([0-9]+)')
 
 '''
     日志分析-统计最后一次迭代的准确率
@@ -18,7 +19,8 @@ for i in range(20):
     with open(file, mode='r') as f:
         last = False
         for line in f:
-            if '200/200' in line :
+            echos=ECHO.findall(line)
+            if len(echos)>0 and (int(echos[0][1])-int(echos[0][0]))==0 :
                 last = True
             if not last:
                 continue

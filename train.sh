@@ -7,6 +7,7 @@ python3 -u train_lstm.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_nu
 python3 -u train_lstm.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.2 --dense_num 100 --epochs 150 --sample_num 1000 --num_cores 16 > logs/lstm18.log
 python3 -u train_lstm.py --model_type lstm --sg 0 --size 150 --iter 50 --lstm_num 150 --lstm_drop 0.2 --dense_num 100 --epochs 150 --sample_num 1500 --num_cores 16 > logs/lstm19.log
 
+
 # 词向量对比
 #python3 -u train_lstm.py --model_type lstm --sg 0 --size 50 --iter 50 --lstm_num 100 --lstm_drop 0.2 --dense_num 100 --epochs 200 > logs/lstm0.log
 #python3 -u train_lstm.py --model_type lstm --sg 0 --size 100 --iter 50 --lstm_num 100 --lstm_drop 0.2 --dense_num 100 --epochs 200 > logs/lstm1.log

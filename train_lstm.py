@@ -123,4 +123,8 @@ def parse():
 
 if __name__ == '__main__':
     model_type = parse()
-    main(model_type)
+    if model_type == config.LSTM:
+        main(model_type)
+    if model_type == 'test':
+        text_rnn = TextRNN_LSTM(class_num=CLASS_NUM)
+        text_rnn.metric()

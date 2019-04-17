@@ -1,13 +1,14 @@
 # /usr/bin/env python3
 # -*- coding:utf-8 -*-
 import os
+from sklearn import metrics
 from config import SEG_DIR, SUBJECTS
 from pre_processing import dataset
 
 segs_path = [os.path.join(SEG_DIR, "{}.csv".format(i)) for i in SUBJECTS]
 
 # 1. 加载数据集
-dfs = dataset.loadData(segs_path, sample_num=1500)
+dfs = dataset.loadData(segs_path, sample_num=500)
 
 # 2. 划分数据集
 x_train, x_test, y_train, y_test = dataset.splitData(dfs)
@@ -24,6 +25,7 @@ X_count_test = count_vec.transform(x_test)
 # 从sklearn.naive_bayes里导入朴素贝叶斯分类器。
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.linear_model import LogisticRegression
+from sklearn.neighbors import KNeighborsClassifier
 # 使用默认的配置对分类器进行初始化。
 mnb_count = MultinomialNB()
 # 使用朴素贝叶斯分类器，对CountVectorizer（不去除停用词）后的训练样本进行参数学习。
@@ -54,6 +56,7 @@ X_tfidf_filter_test = tfidf_filter_vec.transform(x_test)
 
 # 初始化默认配置的朴素贝叶斯分类器，并对CountVectorizer后的数据进行预测与准确性评估。
 mnb_count_filter = MultinomialNB()
+# mnb_count_filter = KNeighborsClassifier(n_neighbors=9)
 # mnb_count_filter = LogisticRegression()
 mnb_count_filter.fit(X_count_filter_train, y_train)
 print ('The accuracy of classifying 20newsgroups using Naive Bayes (CountVectorizer by filtering stopwords):', mnb_count_filter.score(X_count_filter_test, y_test))
@@ -61,6 +64,7 @@ y_count_filter_predict = mnb_count_filter.predict(X_count_filter_test)
 
 # 初始化另一个默认配置的朴素贝叶斯分类器，并对TfidfVectorizer后的数据进行预测与准确性评估。
 mnb_tfidf_filter = MultinomialNB()
+# mnb_tfidf_filter = KNeighborsClassifier(n_neighbors=9)
 # mnb_tfidf_filter = LogisticRegression()
 mnb_tfidf_filter.fit(X_tfidf_filter_train, y_train)
 print('The accuracy of classifying 20newsgroups with Naive Bayes (TfidfVectorizer by filtering stopwords):', mnb_tfidf_filter.score(X_tfidf_filter_test, y_test))
@@ -69,4 +73,7 @@ y_tfidf_filter_predict = mnb_tfidf_filter.predict(X_tfidf_filter_test)
 # 对上述两个模型进行更加详细的性能评估。
 from sklearn.metrics import classification_report
 print(classification_report(y_test, y_count_filter_predict))
+print("平均准确率\n", metrics.accuracy_score(y_test, y_count_filter_predict))
 print (classification_report(y_test, y_tfidf_filter_predict))
+print("平均准确率\n", metrics.accuracy_score(y_test, y_tfidf_filter_predict))
+

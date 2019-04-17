@@ -92,8 +92,13 @@ class TextRNN_LSTM(RNN):
         '''
         评估
         '''
+        # 加载模型
+        if not self.EMBEDDING_MATRIX \
+            and not self.TOKENIZER and not self.ONE_HOT_ENCODER  \
+            and not self.RNN_MODEL and not self.LABEL_ENCODER:
+            self.load_model()
         # 加载数据
-        dfs = loadData([os.path.join(SEG_DIR, "{}.csv".format(i)) for i in config.SUBJECTS])
+        dfs = loadData([os.path.join(SEG_DIR, "{}.csv".format(i)) for i in config.SUBJECTS],sample_num=config.SAMPLE_NUM)
         # 划分训练集和测试集
         x_train, x_test, y_train, y_test_labels = splitData(dfs, test_size=0.25)
 
@@ -129,7 +134,8 @@ class TextRNN_LSTM(RNN):
 
     def check(self):
         global label_save_path,one_hot_save_path,tokenizer_save_path,embedding_matrix_path,lstm_save_path
-        if config.SAMPLE_NUM:
+        # 目前模型只支持这几个
+        if config.SAMPLE_NUM in [500,1000,1500]:
             label_save_path = os.path.join(MODEL_DIR, 'label_encoder.sn{}.pickle'.format(config.SAMPLE_NUM))
             one_hot_save_path = os.path.join(MODEL_DIR, 'one_hot_encoder.sn{}.pickle'.format(config.SAMPLE_NUM))
             tokenizer_save_path = os.path.join(MODEL_DIR, 'text_tokenizer.sn{}.pickle'.format(config.SAMPLE_NUM))

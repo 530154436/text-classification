@@ -38,17 +38,13 @@ def train(model_type, segs_path, word2vec_path):
     create_embedding_matrix(word2vec_path, binary=True, model_instance=text_rnn)
 
     # 5. 训练神经网络
-    # 监听最优模型
+    # 5.1 监听最优模型
     bst_model_path = os.path.join(
-        MODEL_DIR,
-        'vsg{}.vs{}.vi{}.ln{}.dn{}.ld{}.{}.check_point'.format(
+        MODEL_DIR,'vsg{}.vs{}.vi{}.ln{}.dn{}.ld{}.{}.check_point'.format(
             config.SG, config.SIZE, config.ITER, config.LSTM_NUM, config.DENSE_NUM, config.LSTM_DROP, model_type))
-    # 当监测值不再改善时，该回调函数将中止训练
-    # early_stopping = EarlyStopping(monitor='val_loss', patience=3)
-    # 该回调函数将在每个epoch后保存模型到 bst_model_path
     model_checkpoint = ModelCheckpoint(bst_model_path, save_best_only=True, save_weights_only=False)
 
-    # 可视化
+    # 5.2 可视化
     tb = TensorBoard(log_dir='./logs',      # graph 目录
                      histogram_freq=1,       # 按照何等频率（epoch）来计算直方图，0为不计算
                      batch_size=config.BATCH_SIZE,  # 用多大量的数据计算直方图
@@ -59,7 +55,7 @@ def train(model_type, segs_path, word2vec_path):
                      embeddings_layer_names=None,
                      embeddings_metadata=None)
 
-    # 网络结构、目标函数设置
+    # 5.3 网络结构、目标函数设置
     text_rnn.set_model(max_sequence_length=MAX_SEQUENCE_LEN,
                       lstm_drop=config.LSTM_DROP,
                       lstm_num=config.LSTM_NUM,
@@ -126,5 +122,6 @@ if __name__ == '__main__':
     if model_type == config.LSTM:
         main(model_type)
     if model_type == 'test':
+        print(config.DENSE_NUM)
         text_rnn = TextRNN_LSTM(class_num=CLASS_NUM)
         text_rnn.metric()

@@ -11,7 +11,7 @@ from keras.preprocessing.sequence import pad_sequences
 from config import logger,CONTENT,SUBJECT,SUBJECTS,MAX_SEQUENCE_LEN
 from pre_processing import word_embedding
 
-def loadData(segs_paths, sample_num=None):
+def loadData(segs_paths, start=0, sample_num=None):
     '''
     加载原始数据
     '''
@@ -24,21 +24,22 @@ def loadData(segs_paths, sample_num=None):
             min_sample_num = df.shape[0]
     logger.info("min_sample_num = {}".format(min_sample_num))
 
-    if sample_num != None and sample_num > min_sample_num:
-        logger.error("参数 sample_num 大于已有的语料规模.")
-        raise EnvironmentError("参数 sample_num 大于已有的语料规模.")
+    # if sample_num != None and sample_num > min_sample_num:
+    #     logger.error("参数 sample_num 大于已有的语料规模.")
+    #     raise EnvironmentError("参数 sample_num 大于已有的语料规模.")
 
     for path in segs_paths:
         df = pd.read_csv(path)
+        df[CONTENT] = df.apply(func=lambda x:x[CONTENT][:1000], axis=1)
         logger.info("Reading {}. Total articles: {}.".format(path, df.shape[0]))
         # frames.append(df.sample(n=sample_num))
         if sample_num:
-            frames.append(df[:sample_num])
+            frames.append(df[start:sample_num])
         else:
             frames.append(df)
         df.dropna()
     dfs = pd.concat(frames)
-    dfs[CONTENT] = dfs.apply(func=lambda x:x[CONTENT].replace(x[SUBJECT], ''), axis=1)
+    dfs[CONTENT] = dfs.apply(func=lambda x:x[CONTENT], axis=1)
 
     # 统计语料
     logger.info("读取预料统计")
@@ -47,7 +48,7 @@ def loadData(segs_paths, sample_num=None):
 
 def splitData(dfs, test_size=0.25):
     '''
-    预处理，对原始数据进行编码、交叉校验划分、补齐序列
+    划分数据集
     '''
     documents = dfs[CONTENT].values      # 取内容列
     labels = dfs[SUBJECT].values         # 去标签列
@@ -60,13 +61,14 @@ def splitData(dfs, test_size=0.25):
     return x_train, x_test, y_train, y_test
 
 def encode_data(x_train, x_test, y_train, y_test, model_instance=None):
-    # 对标签进行编码
+    # 词编码
     LABEL_ENCODER = LabelEncoder()
     label_en = LABEL_ENCODER.fit(SUBJECTS)
     for_one_hot = label_en.transform(SUBJECTS).reshape((len(SUBJECTS), 1))  # String -> int
     Y_train = LABEL_ENCODER.transform(y_train).reshape((len(y_train), 1))  # 一位数组n reshape->二维数组(n,1)
     Y_test = LABEL_ENCODER.transform(y_test).reshape((len(y_test), 1))
 
+    # One-Hot 编码
     ONE_HOT_ENCODER = OneHotEncoder(sparse=False, categories='auto')
     ONE_HOT_ENCODER.fit(for_one_hot)
     Y_train = ONE_HOT_ENCODER.transform(Y_train)  # 将整数转为one-hot
@@ -78,10 +80,10 @@ def encode_data(x_train, x_test, y_train, y_test, model_instance=None):
     for i in ONE_HOT_ENCODER.transform(for_one_hot):
         logger.info("{}".format(i))
 
-    # 对每个词进行编码
+    # 词编码
     TOKENIZER = Tokenizer(num_words=None, split=' ')
     TOKENIZER.fit_on_texts(x_train)
-    TOKENIZER.fit_on_texts(x_test)
+    # TOKENIZER.fit_on_texts(x_test) # !!!!不能加进来
     X_train = TOKENIZER.texts_to_sequences(x_train)  # 建立词-索引表->词向量嵌入矩阵->词向量
     X_test = TOKENIZER.texts_to_sequences(x_test)
     logger.info("标签One-Hot编码完成；词编码转换完成，共有 {} 词.".format(len(TOKENIZER.index_word)))
@@ -116,7 +118,6 @@ def create_embedding_matrix(word2vec_path, binary=True, model_instance=None):
     for word, i in model_instance.TOKENIZER.word_index.items():
         if word in word2vec.vocab:
             EMBEDDING_MATRIX[i] = word2vec.word_vec(word)
-
     # 赋值
     if model_instance:
         model_instance.EMBEDDING_MATRIX = EMBEDDING_MATRIX

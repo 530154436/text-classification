@@ -38,12 +38,14 @@ class JiaoAnPipeline(object):
         '''
         if TITLE in item:
             item[TITLE] = item[TITLE]
+            logging.info('标题:{}'.format(item[TITLE]))
         if CONTENT in item:
             content = item[CONTENT].replace('\n','')
             item[CONTENT] = content
-            logging.info(content)
-        if '高中' in item[GRADE]:
-            self.senior_exporter.export_item(item)
-        if '初中' in item[GRADE]:
-            self.junior_exporter.export_item(item)
+            logging.info('内容:{} ...'.format(item[CONTENT][:70]))
+        # if '高中' in item[GRADE]:
+        #     self.senior_exporter.export_item(item)
+        # if '初中' in item[GRADE]:
+        #     self.junior_exporter.export_item(item)
         return item
+

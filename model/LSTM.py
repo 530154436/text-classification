@@ -21,18 +21,11 @@ label_save_path = os.path.join(MODEL_DIR, 'label_encoder.pickle')
 one_hot_save_path = os.path.join(MODEL_DIR, 'one_hot_encoder.pickle')
 tokenizer_save_path = os.path.join(MODEL_DIR, 'text_tokenizer.pickle')
 embedding_matrix_path = os.path.join(MODEL_DIR, 'embedding_matrix.pickle')
-lstm_save_path = os.path.join(MODEL_DIR,'vsg{}.vs{}.vi{}.ln{}.dn{}.ld{}.{}.h5'.format(
-    config.SG, config.SIZE, config.ITER, config.LSTM_NUM, config.DENSE_NUM, config.LSTM_DROP, config.LSTM))
+lstm_save_path = os.path.join(MODEL_DIR,'vsg{}.vs{}.vi{}.ln{}.dn{}.ld{}.{}.h5')
 
 class TextRNN_LSTM(RNN):
-    def __init__(self,
-                 class_num=9,
-                 tokenizer=None,
-                 label_encoder=None,
-                 one_hot_encoder=None,
-                 embedding_matrix=None,
-                 rnn_model=None
-                 ):
+    def __init__(self,  class_num=9, tokenizer=None, label_encoder=None,
+                 one_hot_encoder=None, embedding_matrix=None, rnn_model=None ):
         super(TextRNN_LSTM, self).__init__(class_num)
         # 模型保存
         self.TOKENIZER = tokenizer
@@ -48,12 +41,11 @@ class TextRNN_LSTM(RNN):
                   dense_num=200,
                   last_activation='softmax',
                   loss='categorical_crossentropy',
-                  metrics = ('accuracy', 'categorical_accuracy')
-                  ):
+                  metrics = ('accuracy', 'categorical_accuracy')):
         # embedding_layer = self.get_keras_embedding()
         max_features,embedding_dim  = self.EMBEDDING_MATRIX.shape
-        embedding_layer = Embedding(max_features,  # embedding layer
-                                    embedding_dim,
+        embedding_layer = Embedding(input_dim = max_features,  # embedding layer
+                                    output_dim = embedding_dim,
                                     weights=[self.EMBEDDING_MATRIX],
                                     input_length=max_sequence_length,
                                     trainable=False)
@@ -67,19 +59,16 @@ class TextRNN_LSTM(RNN):
         model.add(Dropout(lstm_drop))
         model.add(Dense(self.class_num,
                         activation=last_activation))                    # Dense layer
-
         adam = Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08)
         model.compile(loss=loss,
                       optimizer=adam,
-                      metrics=[item for item in metrics],
-                      )
+                      metrics=[item for item in metrics], )
         model.summary()
         self.RNN_MODEL = model
         # plot_model(model, to_file='pic/lstm.png')
         return model
 
     def train(self, X_train, Y_train,X_test,Y_test, BATCH_SIZE, EPOCHS, model_checkpoint,tb):
-        print(EPOCHS)
         self.RNN_MODEL.fit(X_train, Y_train,
                       batch_size=BATCH_SIZE,  # 随机梯度下降批大小
                       epochs=EPOCHS,  # 迭代次数
@@ -100,7 +89,7 @@ class TextRNN_LSTM(RNN):
         # 加载数据
         dfs = loadData([os.path.join(SEG_DIR, "{}.csv".format(i)) for i in config.SUBJECTS],sample_num=config.SAMPLE_NUM)
         # 划分训练集和测试集
-        x_train, x_test, y_train, y_test_labels = splitData(dfs, test_size=0.25)
+        x_train, x_test, y_train, y_test_labels = splitData(dfs, test_size=0.2)
 
         SUBJECTS = config.SUBJECTS.tolist()
         subject_index = {}
@@ -159,8 +148,12 @@ class TextRNN_LSTM(RNN):
         with open(embedding_matrix_path, 'rb') as f: self.EMBEDDING_MATRIX = pickle.load(f)
         logger.info(load_log_pattern.format(embedding_matrix_path))
 
-        self.RNN_MODEL = models.load_model(lstm_save_path)
-        logger.info(load_log_pattern.format(lstm_save_path))
+        self.RNN_MODEL = models.load_model(lstm_save_path.format(
+                    config.SG, config.SIZE, config.ITER, config.LSTM_NUM,
+                    config.DENSE_NUM, config.LSTM_DROP, config.LSTM))
+        logger.info(load_log_pattern.format(lstm_save_path.format(
+                    config.SG, config.SIZE, config.ITER, config.LSTM_NUM,
+                    config.DENSE_NUM, config.LSTM_DROP, config.LSTM)))
 
     def save_model(self):
         self.check()
@@ -178,5 +171,9 @@ class TextRNN_LSTM(RNN):
         with open(embedding_matrix_path, 'wb') as f: pickle.dump(self.EMBEDDING_MATRIX, f)
         logger.info(save_log_pattern.format(embedding_matrix_path))
 
-        self.RNN_MODEL.save(lstm_save_path)
-        logger.info(save_log_pattern.format(lstm_save_path))
+        self.RNN_MODEL.save(lstm_save_path.format(
+                    config.SG, config.SIZE, config.ITER, config.LSTM_NUM,
+                    config.DENSE_NUM, config.LSTM_DROP, config.LSTM))
+        logger.info(save_log_pattern.format(lstm_save_path.format(
+                    config.SG, config.SIZE, config.ITER, config.LSTM_NUM,
+                    config.DENSE_NUM, config.LSTM_DROP, config.LSTM)))

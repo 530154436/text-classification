@@ -8,7 +8,7 @@ GRADE = '年级'
 SUBJECT = '科目'
 TITLE = '标题'
 CONTENT = '内容'
-DOC_URL = 'URL'
+DOC_URL = 'url'
 
 subject_id = {
     "c129":"政治",
@@ -21,7 +21,6 @@ subject_id = {
     "c119":"数学",
     "c118":"语文"
 }
-
 grade_id = {
     "p104":"高中",
     "p103":"初中"
@@ -70,3 +69,4 @@ class JiaoAnSpider(scrapy.Spider):
         item[TITLE] = ''.join(title)
         item[CONTENT] = ''.join(content)
         yield item
+

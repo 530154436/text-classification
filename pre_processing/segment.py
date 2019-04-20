@@ -85,7 +85,7 @@ def seg_corpus():
     types = os.listdir(CORPUS_DIR)
     count = 0
     for cate in types:
-        if cate not in ['ja', 'lw', 'extend']:
+        if cate not in ['ja','lw','extend']:
             continue
         dir_name = os.path.join(CORPUS_DIR, cate)
         if os.path.isfile(dir_name): continue
@@ -117,7 +117,7 @@ def seg_corpus():
                 segs[subject].append({TITLE:' '.join(seg_tilte), CONTENT:' '.join(seg_content), SUBJECT:subject, DOC_URL:url})
     Headers = [SUBJECT, TITLE, CONTENT, DOC_URL]
     for subject in segs.keys():
-        path = os.path.join(SEG_DIR, '{}.csv'.format(subject))
+        path = os.path.join(SEG_DIR, '{}_extend.csv'.format(subject))
         save2csv(path, Headers, segs[subject])
     save2txt()
 

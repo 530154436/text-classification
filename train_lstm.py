@@ -26,10 +26,10 @@ def train(model_type, segs_path, word2vec_path):
     text_rnn = TextRNN_LSTM(class_num=CLASS_NUM)
 
     # 1. 加载数据集
-    dfs = loadData(segs_path,sample_num=config.SAMPLE_NUM)
+    dfs = loadData(segs_path, sample_num=300)
 
     # 2. 划分数据集
-    x_train, x_test, y_train, y_test = splitData(dfs)
+    x_train, x_test, y_train, y_test = splitData(dfs, test_size=0.3)
 
     # 3. 对数据集和标签进行编码
     X_train, X_test, Y_train, Y_test = encode_data(x_train, x_test, y_train, y_test, model_instance=text_rnn)
@@ -68,7 +68,7 @@ def train(model_type, segs_path, word2vec_path):
 
 def main(model_type):
     # 设定路径
-    segs_path = [os.path.join(SEG_DIR, "{}.csv".format(i)) for i in SUBJECTS]
+    segs_path = [os.path.join(SEG_DIR, "{}_unique.csv".format(i)) for i in SUBJECTS]
     word2vec_path = os.path.join(MODEL_DIR, "vector.sg{}.size{}.iter{}.bin".format(config.SG, config.SIZE, config.ITER))
     train(model_type, segs_path, word2vec_path)
 

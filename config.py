@@ -4,8 +4,9 @@ import os
 import logging
 import numpy as np
 
-BASE_DIR = "/Users/zhengchubin/Desktop/text_classification/"
+# BASE_DIR = "/Users/zhengchubin/Desktop/text_classification/"
 # BASE_DIR = "/home/ai/text_classification/"
+BASE_DIR = "/home/habout/Desktop/text_classification/"
 
 CORPUS_DIR = os.path.join(BASE_DIR, 'corpus')
 SEG_DIR = os.path.join(BASE_DIR, 'seg')

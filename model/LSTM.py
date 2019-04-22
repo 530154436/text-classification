@@ -54,8 +54,8 @@ class TextRNN_LSTM(RNN):
         model.add(LSTM(lstm_num,                                        # LSTM layer
                        dropout=lstm_drop))
         model.add(Dropout(lstm_drop))
-        model.add(Dense(dense_num,                                      # Dense layer
-                        activation='relu'))
+        # model.add(Dense(dense_num,                                      # Dense layer
+        #                 activation='relu'))
         model.add(Dropout(lstm_drop))
         model.add(Dense(self.class_num,
                         activation=last_activation))                    # Dense layer

@@ -46,7 +46,7 @@
                 <!--</td>-->
                 <td><a class='fa fa-lg fa-edit text-light-blue'
                        href='{{ url_for("main.notifyedit", id=row.id) }}'></a></td>
-                <td><a class='fa fa-lg fa-warning text-red' href='?action=del&id={{row.id}}'></a></td>
+                <td><a class='fa fa-lg fa-warning text-red' href='?action=del&id={{row.id}}&subject={{row.subject}}'></a></td>
             </tr>
             {% endfor %}
         </table>

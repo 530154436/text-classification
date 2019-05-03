@@ -18,14 +18,14 @@ logger = get_logger(__name__)
 cfg = get_config()
 
 # 通用列表查询
-def common_list(DynamicModel, view):
+def common_list(DynamicModel, view, subject):
     # 接收参数
     action = request.args.get('action')
     id = request.args.get('id')
     page = int(request.args.get('page')) if request.args.get('page') else 1
     length = int(request.args.get('length')) if request.args.get('length') else cfg.ITEMS_PER_PAGE
 
-    print(action, id, page, length)
+    print(subject, action, id, page, length)
 
     # 删除操作
     if action == 'del' and id:
@@ -37,6 +37,9 @@ def common_list(DynamicModel, view):
 
     # 查询列表
     query = DynamicModel.select()
+    if subject:
+        query = DynamicModel.select().where(DynamicModel.subject==subject)
+        print(query)
     total_count = query.count()
 
     # 处理分页
@@ -180,7 +183,8 @@ def notifyupload():
 @main.route('/notifylist', methods=['GET', 'POST'])
 @login_required
 def notifylist():
-    return common_list(CfgNotify, 'notifylist.html')
+    subject = request.args.get('subject', None)
+    return common_list(CfgNotify, 'notifylist.html', subject)
 
 # 编辑
 @main.route('/notifyedit', methods=['GET', 'POST'])

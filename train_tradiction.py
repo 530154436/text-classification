@@ -30,20 +30,20 @@ def train_tradiction():
     nb.fit(X_train_tfi_df, y_train)
     nb_predict = nb.predict(X_test_tf_idf)
 
-    print('====================== 朴素贝叶斯 begin ======================')
+    print('----------------------- 朴素贝叶斯 -----------------------')
     print (classification_report(y_test, nb_predict))
     print("平均准确率\n", metrics.accuracy_score(y_test, nb_predict))
-    print('======================  朴素贝叶斯 end  ======================')
+    print('----------------------- 朴素贝叶斯 -----------------------')
 
     # 4.2 逻辑斯蒂回归
     lr = LogisticRegression(multi_class='auto', solver='lbfgs')
     lr.fit(X_train_tfi_df, y_train)
     lr_predict = lr.predict(X_test_tf_idf)
 
-    print('====================== 逻辑斯蒂回归 begin ======================')
+    print('----------------------- 逻辑斯蒂回归 -----------------------')
     print (classification_report(y_test, lr_predict))
     print("平均准确率\n", metrics.accuracy_score(y_test, lr_predict))
-    print('======================   逻辑斯蒂回归 end ======================')
+    print('----------------------- 逻辑斯蒂回归 -----------------------')
 
 if __name__ == '__main__':
     train_tradiction()

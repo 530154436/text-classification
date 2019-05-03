@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block title %}首页{% endblock %}
+
+{% block navbar %}
+<section class="content-header">
+    <h1>首页</h1>
+    <ol class="breadcrumb">
+        <li><i class="fa fa-dashboard"></i> 当前位置</li>
+        <li class="active">首页</li>
+    </ol>
+</section>
+{% endblock %}
+
+{% block content %}
+<div class="box box-primary">
+    <div class="box-body">
+        <div class="row">
+            <div class="col-lg-3 col-xs-6">
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <p style="font-size: 15px">语文</p>
+                        <h3 id="count01">0</h3>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-ios-book-outline"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-xs-6">
+                <div class="small-box bg-green">
+                    <div class="inner">
+                        <p  style="font-size: 15px">数学</p>
+                        <h3 id="count02">0</h3>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-ios-calculator"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-xs-6">
+                <div class="small-box bg-danger">
+                    <div class="inner">
+                        <p style="font-size: 15px">英语</p>
+                        <h3 id="count03">0</h3>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-ios-baseball"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-xs-6">
+                <div class="small-box bg-success">
+                    <div class="inner">
+                        <p style="font-size: 15px">物理</p>
+                        <h3 id="count04">0</h3>
+                    </div>
+                    <div class="icon">
+                        <i class="ion  ion-magnet"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-xs-6">
+                <div class="small-box bg-info">
+                    <div class="inner">
+                        <p style="font-size: 15px">化学</p>
+                        <h3 id="count05">0</h3>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-erlenmeyer-flask"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-xs-6">
+                <div class="small-box bg-warning">
+                    <div class="inner">
+                        <p style="font-size: 15px">生物</p>
+                        <h3 id="count06">0</h3>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-earth"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-xs-6">
+                <div class="small-box bg-purple">
+                    <div class="inner">
+                        <p style="font-size: 15px">地理</p>
+                        <h3 id="count07">0</h3>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-planet"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-xs-6">
+                <div class="small-box bg-yellow">
+                    <div class="inner">
+                        <p style="font-size: 15px">历史</p>
+                        <h3 id="count08">0</h3>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-ios-clock-outline"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-xs-6">
+                <div class="small-box bg-gray">
+                    <div class="inner">
+                        <p style="font-size: 15px">政治</p>
+                        <h3 id="count09">0</h3>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-person-stalker"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box-footer">
+        <div class="alert alert-info alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-info"></i> 温馨提示</h4>
+            <ol>
+                <li>温馨提示温馨提示温馨提示</li>
+            </ol>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function initPage() {
+        var jsInObj = null;
+        restTemplate("GET", "/stats/summary", jsInObj, function (jsOutObj) {
+            $("#count01").text(jsOutObj.yuwen_count);
+            $("#count02").text(jsOutObj.shuxue_count);
+            $("#count03").text(jsOutObj.yingyu_count);
+            $("#count04").text(jsOutObj.wuli_count);
+            $("#count05").text(jsOutObj.huaxue_count);
+            $("#count06").text(jsOutObj.shengwu_count);
+            $("#count07").text(jsOutObj.dili_count);
+            $("#count08").text(jsOutObj.lishi_count);
+            $("#count09").text(jsOutObj.zhengzhi_count);
+        });
+    }
+</script>
+{% endblock %}

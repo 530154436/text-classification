@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}教学资源批量上传{% endblock %}
+
+
+{% block navbar %}
+<section class="content-header">
+    <h1>教学资源批量上传</h1>
+    <ol class="breadcrumb">
+        <li><i class="fa fa-dashboard"></i> 当前位置</li>
+        <li class="active">教学资源管理</li>
+        <li class="active">教学资源批量上传</li>
+    </ol>
+</section>
+{% endblock %}
+
+
+{% block content %}
+<div class="box box-primary">
+    <form enctype="multipart/form-data" method="post">
+        {{ form.hidden_tag() }}
+        <div class="box-header with-border">
+            {% include 'message.html' %}
+        </div>
+
+        <div class="box-body">
+            <!--文件上传-->
+            {{ form.files(multiple="multiple") }}
+            {% for error in form.files.errors %}
+                <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+            {{form.submit(class_="btn btn-primary pull-right")}}
+            <!--文件上传-->
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+
+</script>
+{% endblock %}

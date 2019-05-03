@@ -37,7 +37,7 @@ def loadData(segs_paths, start=0, sample_num=None):
             frames.append(df)
         df.dropna()
     dfs = pd.concat(frames)
-    dfs[CONTENT] = dfs.apply(func=lambda x:x[CONTENT], axis=1)
+    # dfs[CONTENT] = dfs.apply(func=lambda x:x[CONTENT], axis=1)
 
     # 统计语料
     logger.info("读取语料统计")
@@ -137,7 +137,6 @@ def create_embedding_matrix(word2vec_path, binary=True, model_instance=None):
 def cluster():
     for subject in SUBJECTS:
         segs_path = [os.path.join(SEG_DIR, "{}.csv".format(subject))]
-        # segs_path.extend([os.path.join(SEG_DIR, "{}_extend.csv".format(i)) for i in SUBJECTS])
         # 1. 加载数据集
         dfs = loadData(segs_path)
 
@@ -149,7 +148,7 @@ def cluster():
         features = tf_idf.fit_transform(content_list)
 
         # 3. dbscan 聚类
-        clusters = DBSCAN(eps=0.5, algorithm='auto', min_samples=1, metric='cosine', n_jobs=4)\
+        clusters = DBSCAN(eps=0.4, algorithm='auto', min_samples=1, metric='cosine', n_jobs=4)\
             .fit_predict(features)
 
         # 4. 取出重复行
@@ -173,6 +172,6 @@ def cluster():
         dfs.to_csv(path)
 
 if __name__ == '__main__':
-    # segs_path = [os.path.join(config.SEG_DIR, "{}.csv".format(i)) for i in SUBJECTS]
-    # loadData(segs_path, sample_num=500)
-    cluster()
+    segs_path = [os.path.join(config.SEG_DIR, "{}_unique.csv".format(i)) for i in SUBJECTS]
+    loadData(segs_path, sample_num=500)
+    # cluster()

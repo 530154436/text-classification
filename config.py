@@ -4,9 +4,9 @@ import os
 import logging
 import numpy as np
 
-# BASE_DIR = "/Users/zhengchubin/Desktop/text_classification/"
+BASE_DIR = "/Users/zhengchubin/Desktop/text_classification/"
 # BASE_DIR = "/home/ai/text_classification/"
-BASE_DIR = "/home/habout/Desktop/text_classification/"
+# BASE_DIR = "/home/habout/Desktop/text_classification/"
 
 CORPUS_DIR = os.path.join(BASE_DIR, 'corpus')
 SEG_DIR = os.path.join(BASE_DIR, 'seg')
@@ -34,8 +34,8 @@ CLASS_NUM = len(SUBJECTS)
 #  模型参数设置
 ################################
 # word2vec
-SG = 0                                               # 算法模型 0:"cbow";1:"skg"
-SIZE = 150                                           # 词向量维度
+SG = 1                                               # 算法模型 0:"cbow";1:"skg"
+SIZE = 100                                           # 词向量维度
 ITER = 50                                            # 迭代次数
 WINDOW = 5                                           # 窗口
 MIN_COUNT = 3                                        # 最小词频
@@ -44,14 +44,14 @@ MIN_COUNT = 3                                        # 最小词频
 LSTM = 'lstm'
 BI_LSTM = 'bilstm'
 MODEL_TYPES = [LSTM, BI_LSTM]
-MAX_SEQUENCE_LEN = 1000                              # 序列最长长度
+MAX_SEQUENCE_LEN = 600                               # 序列最长长度
 BATCH_SIZE = 32                                      # 批大小
-EPOCHS = 5                                           # 迭代次数
+EPOCHS = 200                                         # 迭代次数
 LSTM_DROP = 0.2                                      # LSTM 丢掉率
 LSTM_NUM = 150                                       # LSTM 单元数
 DENSE_NUM = 100                                      # DENSE 单元数
 SAMPLE_NUM = None                                    # 语料数量
 
 # 训练参数
-NUM_CORES = 16
+NUM_CORES = 8
 ################################

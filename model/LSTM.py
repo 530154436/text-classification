@@ -3,7 +3,6 @@
 
 from keras import Sequential
 from keras.layers import LSTM,Dense,Embedding,Dropout
-from keras.optimizers import Adam
 from model.RNN import RNN
 import os
 import config
@@ -20,8 +19,8 @@ load_log_pattern = '{} 已加载.'
 label_save_path = os.path.join(MODEL_DIR, 'label_encoder.pickle')
 one_hot_save_path = os.path.join(MODEL_DIR, 'one_hot_encoder.pickle')
 tokenizer_save_path = os.path.join(MODEL_DIR, 'text_tokenizer.pickle')
-embedding_matrix_path = os.path.join(MODEL_DIR, 'embedding_matrix.pickle')
-lstm_save_path = os.path.join(MODEL_DIR,'vsg{}.vs{}.vi{}.ln{}.dn{}.ld{}.{}.h5')
+embedding_matrix_path = os.path.join(MODEL_DIR, 'embedding_matrix.vsg{}.vs{}.pickle')
+lstm_save_path = os.path.join(MODEL_DIR,'vsg{}.vs{}.ln{}.ld{}.{}.h5')
 
 class TextRNN_LSTM(RNN):
     def __init__(self,  class_num=9, tokenizer=None, label_encoder=None,
@@ -56,12 +55,11 @@ class TextRNN_LSTM(RNN):
         model.add(Dropout(lstm_drop))
         # model.add(Dense(dense_num,                                      # Dense layer
         #                 activation='relu'))
-        model.add(Dropout(lstm_drop))
+        # model.add(Dropout(lstm_drop))
         model.add(Dense(self.class_num,
                         activation=last_activation))                    # Dense layer
-        adam = Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08)
         model.compile(loss=loss,
-                      optimizer=adam,
+                      optimizer='rmsprop',
                       metrics=[item for item in metrics], )
         model.summary()
         self.RNN_MODEL = model
@@ -87,9 +85,9 @@ class TextRNN_LSTM(RNN):
             and not self.RNN_MODEL and not self.LABEL_ENCODER:
             self.load_model()
         # 加载数据
-        dfs = loadData([os.path.join(SEG_DIR, "{}.csv".format(i)) for i in config.SUBJECTS],sample_num=config.SAMPLE_NUM)
+        dfs = loadData([os.path.join(SEG_DIR, "{}_unique.csv".format(i)) for i in config.SUBJECTS],sample_num=300)
         # 划分训练集和测试集
-        x_train, x_test, y_train, y_test_labels = splitData(dfs, test_size=0.2)
+        x_train, x_test, y_train, y_test_labels = splitData(dfs, test_size=0.3)
 
         SUBJECTS = config.SUBJECTS.tolist()
         subject_index = {}
@@ -129,8 +127,8 @@ class TextRNN_LSTM(RNN):
             one_hot_save_path = os.path.join(MODEL_DIR, 'one_hot_encoder.sn{}.pickle'.format(config.SAMPLE_NUM))
             tokenizer_save_path = os.path.join(MODEL_DIR, 'text_tokenizer.sn{}.pickle'.format(config.SAMPLE_NUM))
             embedding_matrix_path = os.path.join(MODEL_DIR, 'embedding_matrix.sn{}.pickle'.format(config.SAMPLE_NUM))
-            lstm_save_path = os.path.join(MODEL_DIR, 'vsg{}.vs{}.vi{}.ln{}.dn{}.ld{}.{}.sn{}.h5'.format(
-                config.SG, config.SIZE, config.ITER, config.LSTM_NUM, config.DENSE_NUM, config.LSTM_DROP, config.LSTM,
+            lstm_save_path = os.path.join(MODEL_DIR, 'vsg{}.vs{}.ln{}.ld{}.{}.sn{}.h5'.format(
+                config.SG, config.SIZE, config.LSTM_NUM, config.LSTM_DROP, config.LSTM,
                 config.SAMPLE_NUM))
 
     def load_model(self):
@@ -145,15 +143,16 @@ class TextRNN_LSTM(RNN):
         with open(tokenizer_save_path, 'rb') as f: self.TOKENIZER = pickle.load(f)
         logger.info(load_log_pattern.format(tokenizer_save_path))
 
-        with open(embedding_matrix_path, 'rb') as f: self.EMBEDDING_MATRIX = pickle.load(f)
-        logger.info(load_log_pattern.format(embedding_matrix_path))
+        with open(embedding_matrix_path.format(config.SG, config.SIZE), 'rb') as f: self.EMBEDDING_MATRIX = pickle.load(f)
+        logger.info(load_log_pattern.format(embedding_matrix_path.format(config.SG, config.SIZE)))
 
         self.RNN_MODEL = models.load_model(lstm_save_path.format(
-                    config.SG, config.SIZE, config.ITER, config.LSTM_NUM,
-                    config.DENSE_NUM, config.LSTM_DROP, config.LSTM))
+                    config.SG, config.SIZE, config.LSTM_NUM, config.LSTM_DROP, config.LSTM))
         logger.info(load_log_pattern.format(lstm_save_path.format(
-                    config.SG, config.SIZE, config.ITER, config.LSTM_NUM,
-                    config.DENSE_NUM, config.LSTM_DROP, config.LSTM)))
+                    config.SG, config.SIZE,  config.LSTM_NUM, config.LSTM_DROP, config.LSTM)))
+
+        # 不加这句 -> 报错: Tensor is not an element in the graph.
+        self.RNN_MODEL._make_predict_function()
 
     def save_model(self):
         self.check()
@@ -168,12 +167,10 @@ class TextRNN_LSTM(RNN):
             pickle.dump(self.TOKENIZER, f, protocol=pickle.HIGHEST_PROTOCOL)
         logger.info(save_log_pattern.format(tokenizer_save_path))
 
-        with open(embedding_matrix_path, 'wb') as f: pickle.dump(self.EMBEDDING_MATRIX, f)
-        logger.info(save_log_pattern.format(embedding_matrix_path))
+        with open(embedding_matrix_path.format(config.SG,config.SIZE), 'wb') as f: pickle.dump(self.EMBEDDING_MATRIX, f)
+        logger.info(save_log_pattern.format(embedding_matrix_path.format(config.SG, config.SIZE)))
 
         self.RNN_MODEL.save(lstm_save_path.format(
-                    config.SG, config.SIZE, config.ITER, config.LSTM_NUM,
-                    config.DENSE_NUM, config.LSTM_DROP, config.LSTM))
+                    config.SG, config.SIZE, config.LSTM_NUM, config.LSTM_DROP, config.LSTM))
         logger.info(save_log_pattern.format(lstm_save_path.format(
-                    config.SG, config.SIZE, config.ITER, config.LSTM_NUM,
-                    config.DENSE_NUM, config.LSTM_DROP, config.LSTM)))
+                    config.SG, config.SIZE, config.LSTM_NUM, config.LSTM_DROP, config.LSTM)))

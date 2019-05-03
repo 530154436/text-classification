@@ -9,7 +9,6 @@ from keras.callbacks import TensorBoard
 from model.LSTM import TextRNN_LSTM
 from pre_processing.dataset import loadData, splitData, encode_data, create_embedding_matrix
 from config import MAX_SEQUENCE_LEN,SEG_DIR, MODEL_DIR, CLASS_NUM, SUBJECTS
-
 import config
 
 ####################################################################
@@ -40,12 +39,16 @@ def train(model_type, segs_path, word2vec_path):
     # 5. 训练神经网络
     # 5.1 监听最优模型
     bst_model_path = os.path.join(
-        MODEL_DIR,'vsg{}.vs{}.vi{}.ln{}.dn{}.ld{}.{}.check_point'.format(
-            config.SG, config.SIZE, config.ITER, config.LSTM_NUM, config.DENSE_NUM, config.LSTM_DROP, model_type))
+        MODEL_DIR,'vsg{}.vs{}.ln{}.ld{}.{}.check_point'.format(
+            config.SG, config.SIZE, config.LSTM_NUM, config.LSTM_DROP, model_type))
     model_checkpoint = ModelCheckpoint(bst_model_path, save_best_only=True, save_weights_only=False)
 
     # 5.2 可视化
-    tb = TensorBoard(log_dir='./logs',      # graph 目录
+    log_dir = os.path.join(os.getcwd(), 'logs','vsg{}.vs{}.ln{}.ld{}'
+                      .format( config.SG, config.SIZE, config.LSTM_NUM, config.LSTM_DROP))
+    if not os.path.exists(log_dir):
+        os.mkdir(log_dir)
+    tb = TensorBoard(log_dir=log_dir,
                      histogram_freq=1,       # 按照何等频率（epoch）来计算直方图，0为不计算
                      batch_size=config.BATCH_SIZE,  # 用多大量的数据计算直方图
                      write_graph=False,      # 是否存储网络结构图
@@ -80,7 +83,7 @@ def parse():
     # word2vec
     parser.add_argument("--sg", dest='SG',   required=True, type=int)
     parser.add_argument("--size", dest='SIZE', required=True, type=int)
-    parser.add_argument("--iter", dest='ITER', required=True, type=int )
+    parser.add_argument("--iter", dest='ITER', required=False, type=int )
 
     parser.add_argument("--num_cores", dest='NUM_CORES', required=False, type=int)
     parser.add_argument("--window", dest='WINDOW', required=False, type=int)
@@ -89,7 +92,7 @@ def parse():
     # lstm
     parser.add_argument("--lstm_num", dest='LSTM_NUM', required=True, type=int )
     parser.add_argument("--lstm_drop", dest='LSTM_DROP', required=True, type=float )
-    parser.add_argument("--dense_num", dest='DENSE_NUM', required=True, type=int)
+    parser.add_argument("--dense_num", dest='DENSE_NUM', required=False, type=int)
     parser.add_argument("--epochs", dest='EPOCHS', required=True, type=int)
     parser.add_argument("--model_type", dest='model_type', required=True, type=str)
 

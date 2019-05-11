@@ -1,228 +1,228 @@
-cffi==1.11.2
-chardet==3.0.4
-click==6.6
-colorama==0.3.7
-constantly==15.1.0
-coremltools==2.1.0
-crcmod==1.7
-cryptography==2.1.3
-cssselect==1.0.1
-cvxopt==1.2.2
-cycler==0.10.0
-dateparser==0.7.1
-decorator==4.1.2
-deepctr==0.3.1
-defusedxml==0.5.0
-docopt==0.6.2
-docutils==0.14
-dotmap==1.2.20
-elasticsearch==6.1.1
-elasticsearch-async==5.2.0
-entrypoints==0.3
-enum34==1.1.6
-et-xmlfile==1.0.1
-Fabric3==1.14.post1
-feedfinder2==0.0.4
-feedparser==5.2.1
-ffmpeg==1.4
-ffmpeg-normalize==1.3.8
-Flask==1.0.2
-Flask-Admin==1.5.3
-Flask-BabelEx==0.9.3
-Flask-Cors==3.0.6
-flask-jsondash==6.2.3
-Flask-Login==0.4.1
-Flask-Mail==0.9.1
-Flask-Principal==0.4.0
-Flask-RESTful==0.2.5
-Flask-Script==2.0.6
-Flask-Security==3.0.0
-Flask-SQLAlchemy==2.4.0
-Flask-Uploads==0.2.1
-Flask-WTF==0.14.2
-future==0.17.1
-gast==0.2.2
-gensim==3.7.2
-graphviz==0.8.4
-grpcio==1.18.0
-h5py==2.9.0
-hiredis==0.2.0
-hjson==3.0.1
-html5lib==0.9999999
-HTMLParser==0.0.2
-hurry.filesize==0.9
-hyperlink==17.3.1
-hypothesis==3.88.3
-idataapi-transform==1.0.1
-idna==2.8
-incremental==17.5.0
-ipykernel==5.1.0
-ipython==6.1.0
-ipython-genutils==0.2.0
-ipywidgets==7.4.2
-itchat==1.2.32
-itsdangerous==0.24
-jdcal==1.3
-jedi==0.13.2
-jieba==0.39
-jieba3k==0.35.1
-Jinja2==2.10
-jmespath==0.9.3
-joblib==0.13.1
-jsonschema==2.6.0
-jupyter==1.0.0
-jupyter-client==5.2.4
-jupyter-console==6.0.0
-jupyter-core==4.4.0
-Keras==2.2.4
-Keras-Applications==1.0.7
-Keras-Preprocessing==1.0.9
-kombu==4.4.0
-langdetect==1.0.7
-llvmlite==0.28.0
-logzero==1.5.0
-lxml==3.8.0
-Markdown==2.6.11
-MarkupSafe==1.0
-matplotlib==2.0.2
-mistune==0.8.4
-mock==2.0.0
-more-itertools==6.0.0
-multidict==4.0.0
-mxnet==1.1.0.post0
-nbconvert==5.4.1
-nbformat==4.4.0
-networkx==2.0
-newspaper3k==0.2.5
-nltk==3.2.5
-notebook==5.7.4
-numba==0.43.0
-numpy==1.16.1
-olefile==0.44
-onnx==1.3.0
-opencv-python==3.4.0.12
-openpyxl==2.4.10
-oss2==2.4.0
-pandas==0.24.1
-pandocfilters==1.4.2
-paramiko==2.4.1
-parsel==1.2.0
-parso==0.3.4
-passlib==1.7.1
-pbr==5.1.3
-peewee==3.9.5
-pexpect==4.3.1
-pickleshare==0.7.5
-Pillow==4.2.1
-pipreqs==0.4.9
-pkuseg==0.0.21
-plac==0.9.6
-pluggy==0.9.0
-prettytable==0.7.2
-prometheus-client==0.5.0
-prompt-toolkit==2.0.9
-protobuf==3.6.1
-psutil==5.4.3
-ptyprocess==0.5.2
-py==1.8.0
-py4j==0.10.7
-pyasn1==0.4.2
-pyasn1-modules==0.2.1
-pycandela==0.4.0
-pycparser==2.18
-pycurl==7.43.0.1
-pyDes==2.0.1
-PyDispatcher==2.0.5
-PyExecJS==1.5.1
-Pygments==2.3.1
-pymongo==3.3.0
-Pympler==0.5
-PyMySQL==0.7.11
-PyNaCl==1.2.1
-pyodps==0.8.0
-pyOpenSSL==17.4.0
-pyparsing==2.2.0
-PyPDF2==1.26.0
-pypng==0.0.19
-PyQRCode==1.2.1
-pyquery==1.4.0
-pyspark==2.4.0
-pytesseract==0.2.0
-pytext-nlp==0.1.4
-python-dateutil==2.8.0
-python-docx==0.8.10
-python-dotenv==0.10.1
-pytz==2018.9
-PyYAML==3.12
-pyzmq==17.1.2
-qcloudapi-sdk-python==2.0.8
-qtconsole==4.4.3
-queuelib==1.4.2
-radar==0.3
-readability-lxml==0.6.2
-redis==2.10.6
-regex==2019.4.14
-requests==2.21.0
-requests-file==1.4.2
-requests-mock==1.5.2
-resampy==0.2.1
-rsa==3.4.2
-s3transfer==0.1.11
-scikit-learn==0.20.3
-scikit-surprise==1.0.6
-scipy==1.2.0
-Scrapy==1.4.0
-selenium==3.141.0
-Send2Trash==1.5.0
-service-identity==17.0.0
-simplegeneric==0.8.1
-six==1.11.0
-sklearn==0.0
-smart-open==1.8.1
-speaklater==1.3
-SQLAlchemy==1.2.2
-stevedore==1.30.1
-tensorboard==1.13.1
-tensorboardX==1.6
-tensorflow==1.13.1
-tensorflow-estimator==1.13.0
-tensorflow-tensorboard==0.4.0
-termcolor==1.1.0
-terminado==0.8.1
-testpath==0.4.2
-threadpool==1.3.2
-tldextract==2.2.0
-torch==1.0.1
-torchtext==0.3.1
-torchvision==0.2.2.post3
-tornado==4.5.2
-tqdm==4.30.0
-traitlets==4.3.2
-turicreate==5.4
-Twisted==17.9.0
-typing==3.6.6
-typing-extensions==3.7.2
-tzlocal==1.5.1
-urllib3==1.24.1
-uvloop==0.9.1
-uWSGI==2.0.18
-vine==1.2.0
-virtualenv==16.4.3
-virtualenv-clone==0.5.3
-virtualenvwrapper==4.8.4
-w3lib==1.18.0
-warcio==1.5.0
-wcwidth==0.1.7
-Werkzeug==0.14.1
-wget==3.2
-widgetsnbextension==3.4.2
-wordcloud==1.5.0
-WTForms==2.2.1
-wxpy==0.3.9.8
-xlearn==0.40a1
-xlrd==1.1.0
-xlwt==1.3.0
-yarg==0.1.9
-yarl==1.1.0
-zhconv==1.4.0
-zope.interface==4.4.3
+python3 -m pip install cffi==1.11.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install chardet==3.0.4 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install click==6.6 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install colorama==0.3.7 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install constantly==15.1.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install coremltools==2.1.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install crcmod==1.7 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install cryptography==2.1.3 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install cssselect==1.0.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install cvxopt==1.2.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install cycler==0.10.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install dateparser==0.7.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install decorator==4.1.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install deepctr==0.3.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install defusedxml==0.5.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install docopt==0.6.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install docutils==0.14 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install dotmap==1.2.20 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install elasticsearch==6.1.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install elasticsearch-async==5.2.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install entrypoints==0.3 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install enum34==1.1.6 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install et-xmlfile==1.0.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install Fabric3==1.14.post1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install feedfinder2==0.0.4 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install feedparser==5.2.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install ffmpeg==1.4 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install ffmpeg-normalize==1.3.8 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install Flask==1.0.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install Flask-Admin==1.5.3 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install Flask-BabelEx==0.9.3 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install Flask-Cors==3.0.6 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install flask-jsondash==6.2.3 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install Flask-Login==0.4.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install Flask-Mail==0.9.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install Flask-Principal==0.4.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install Flask-RESTful==0.2.5 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install Flask-Script==2.0.6 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install Flask-Security==3.0.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install Flask-SQLAlchemy==2.4.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install Flask-Uploads==0.2.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install Flask-WTF==0.14.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install future==0.17.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install gast==0.2.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install gensim==3.7.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install graphviz==0.8.4 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install grpcio==1.18.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install h5py==2.9.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install hiredis==0.2.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install hjson==3.0.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install html5lib==0.9999999 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install HTMLParser==0.0.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install hurry.filesize==0.9 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install hyperlink==17.3.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install hypothesis==3.88.3 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install idataapi-transform==1.0.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install idna==2.8 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install incremental==17.5.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install ipykernel==5.1.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install ipython==6.1.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install ipython-genutils==0.2.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install ipywidgets==7.4.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install itchat==1.2.32 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install itsdangerous==0.24 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install jdcal==1.3 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install jedi==0.13.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install jieba==0.39 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install jieba3k==0.35.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install Jinja2==2.10 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install jmespath==0.9.3 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install joblib==0.13.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install jsonschema==2.6.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install jupyter==1.0.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install jupyter-client==5.2.4 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install jupyter-console==6.0.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install jupyter-core==4.4.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install Keras==2.2.4 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install Keras-Applications==1.0.7 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install Keras-Preprocessing==1.0.9 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install kombu==4.4.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install langdetect==1.0.7 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install llvmlite==0.28.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install logzero==1.5.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install lxml==3.8.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install Markdown==2.6.11 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install MarkupSafe==1.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install matplotlib==2.0.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install mistune==0.8.4 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install mock==2.0.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install more-itertools==6.0.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install multidict==4.0.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install mxnet==1.1.0.post0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install nbconvert==5.4.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install nbformat==4.4.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install networkx==2.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install newspaper3k==0.2.5 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install nltk==3.2.5 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install notebook==5.7.4 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install numba==0.43.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install numpy==1.16.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install olefile==0.44 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install onnx==1.3.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install opencv-python==3.4.0.12 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install openpyxl==2.4.10 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install oss2==2.4.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install pandas==0.24.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install pandocfilters==1.4.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install paramiko==2.4.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install parsel==1.2.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install parso==0.3.4 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install passlib==1.7.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install pbr==5.1.3 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install peewee==3.9.5 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install pexpect==4.3.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install pickleshare==0.7.5 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install Pillow==4.2.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install pipreqs==0.4.9 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install pkuseg==0.0.21 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install plac==0.9.6 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install pluggy==0.9.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install prettytable==0.7.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install prometheus-client==0.5.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install prompt-toolkit==2.0.9 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install protobuf==3.6.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install psutil==5.4.3 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install ptyprocess==0.5.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install py==1.8.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install py4j==0.10.7 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install pyasn1==0.4.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install pyasn1-modules==0.2.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install pycandela==0.4.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install pycparser==2.18 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install pycurl==7.43.0.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install pyDes==2.0.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install PyDispatcher==2.0.5 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install PyExecJS==1.5.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install Pygments==2.3.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install pymongo==3.3.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install Pympler==0.5 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install PyMySQL==0.7.11 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install PyNaCl==1.2.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install pyodps==0.8.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install pyOpenSSL==17.4.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install pyparsing==2.2.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install PyPDF2==1.26.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install pypng==0.0.19 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install PyQRCode==1.2.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install pyquery==1.4.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install pyspark==2.4.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install pytesseract==0.2.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install pytext-nlp==0.1.4 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install python-dateutil==2.8.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install python-docx==0.8.10 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install python-dotenv==0.10.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install pytz==2018.9 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install PyYAML==3.12 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install pyzmq==17.1.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install qcloudapi-sdk-python==2.0.8 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install qtconsole==4.4.3 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install queuelib==1.4.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install radar==0.3 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install readability-lxml==0.6.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install redis==2.10.6 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install regex==2019.4.14 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install requests==2.21.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install requests-file==1.4.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install requests-mock==1.5.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install resampy==0.2.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install rsa==3.4.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install s3transfer==0.1.11 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install scikit-learn==0.20.3 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install scikit-surprise==1.0.6 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install scipy==1.2.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install Scrapy==1.4.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install selenium==3.141.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install Send2Trash==1.5.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install service-identity==17.0.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install simplegeneric==0.8.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install six==1.11.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install sklearn==0.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install smart-open==1.8.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install speaklater==1.3 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install SQLAlchemy==1.2.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install stevedore==1.30.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install tensorboard==1.13.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install tensorboardX==1.6 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install tensorflow==1.13.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install tensorflow-estimator==1.13.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install tensorflow-tensorboard==0.4.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install termcolor==1.1.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install terminado==0.8.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install testpath==0.4.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install threadpool==1.3.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install tldextract==2.2.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install torch==1.0.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install torchtext==0.3.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install torchvision==0.2.2.post3 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install tornado==4.5.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install tqdm==4.30.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install traitlets==4.3.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install turicreate==5.4 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install Twisted==17.9.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install typing==3.6.6 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install typing-extensions==3.7.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install tzlocal==1.5.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install urllib3==1.24.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install uvloop==0.9.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install uWSGI==2.0.18 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install vine==1.2.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install virtualenv==16.4.3 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install virtualenv-clone==0.5.3 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install virtualenvwrapper==4.8.4 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install w3lib==1.18.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install warcio==1.5.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install wcwidth==0.1.7 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install Werkzeug==0.14.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install wget==3.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install widgetsnbextension==3.4.2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install wordcloud==1.5.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install WTForms==2.2.1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install wxpy==0.3.9.8 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install xlearn==0.40a1 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install xlrd==1.1.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install xlwt==1.3.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install yarg==0.1.9 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install yarl==1.1.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install zhconv==1.4.0 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+python3 -m pip install zope.interface==4.4.3 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com

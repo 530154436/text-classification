@@ -234,7 +234,7 @@ tornado==4.5.2
 tqdm==4.30.0
 traitlets==4.3.2
 turicreate==5.4
-Twisted==17.9.0
+Twisted==19.7.0
 typing==3.6.6
 typing-extensions==3.7.2
 tzlocal==1.5.1

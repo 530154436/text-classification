@@ -248,7 +248,7 @@ virtualenvwrapper==4.8.4
 w3lib==1.18.0
 warcio==1.5.0
 wcwidth==0.1.7
-Werkzeug==0.14.1
+Werkzeug==0.15.3
 wget==3.2
 widgetsnbextension==3.4.2
 wordcloud==1.5.0

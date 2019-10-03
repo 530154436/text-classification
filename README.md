@@ -63,6 +63,8 @@ nohup ./manage.py runserver 2>&1 &
 - /app/utils.py  工具模块
 - /conf  系统参数及日志配置
 
+# 项目截图
+![项目截图](https://github.com/530154436/text-classification/blob/master/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202019-10-03%2020.05.25.png)
 
 ## 相关学习文档
 - [http://flask.pocoo.org](http://flask.pocoo.org)

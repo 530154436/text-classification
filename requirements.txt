@@ -1,7 +1,7 @@
 absl-py==0.7.0
 ago==0.0.92
 ahttp==1.0.1
-aiohttp==2.3.9
+aiohttp==3.7.4
 aioredis==1.1.0
 aliyun-log-python-sdk==0.6.45
 amqp==2.4.2

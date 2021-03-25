@@ -188,7 +188,7 @@ python-dateutil==2.8.0
 python-docx==0.8.10
 python-dotenv==0.10.1
 pytz==2018.9
-PyYAML==3.12
+PyYAML==5.4
 pyzmq==17.1.2
 qcloudapi-sdk-python==2.0.8
 qtconsole==4.4.3

@@ -169,7 +169,7 @@ pycurl==7.43.0.1
 pyDes==2.0.1
 PyDispatcher==2.0.5
 PyExecJS==1.5.1
-Pygments==2.3.1
+Pygments==2.7.4
 pymongo==3.3.0
 Pympler==0.5
 PyMySQL==0.7.11

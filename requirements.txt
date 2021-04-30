@@ -201,7 +201,7 @@ requests==2.21.0
 requests-file==1.4.2
 requests-mock==1.5.2
 resampy==0.2.1
-rsa==3.4.2
+rsa==4.7
 s3transfer==0.1.11
 scikit-learn==0.20.3
 scikit-surprise==1.0.6

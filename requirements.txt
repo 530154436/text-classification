@@ -238,7 +238,7 @@ Twisted==17.9.0
 typing==3.6.6
 typing-extensions==3.7.2
 tzlocal==1.5.1
-urllib3==1.24.1
+urllib3==1.26.5
 uvloop==0.9.1
 uWSGI==2.0.18
 vine==1.2.0

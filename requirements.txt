@@ -177,7 +177,7 @@ PyNaCl==1.2.1
 pyodps==0.8.0
 pyOpenSSL==17.4.0
 pyparsing==2.2.0
-PyPDF2==1.26.0
+PyPDF2==1.27.5
 pypng==0.0.19
 PyQRCode==1.2.1
 pyquery==1.4.0

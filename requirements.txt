@@ -132,7 +132,7 @@ newspaper3k==0.2.5
 nltk==3.2.5
 notebook==5.7.4
 numba==0.43.0
-numpy==1.16.1
+numpy==1.22.0
 olefile==0.44
 onnx==1.3.0
 opencv-python==3.4.0.12

@@ -116,7 +116,7 @@ kombu==4.4.0
 langdetect==1.0.7
 llvmlite==0.28.0
 logzero==1.5.0
-lxml==3.8.0
+lxml==4.9.1
 Markdown==2.6.11
 MarkupSafe==1.0
 matplotlib==2.0.2

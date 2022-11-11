@@ -181,7 +181,7 @@ PyPDF2==1.26.0
 pypng==0.0.19
 PyQRCode==1.2.1
 pyquery==1.4.0
-pyspark==2.4.0
+pyspark==3.2.2
 pytesseract==0.2.0
 pytext-nlp==0.1.4
 python-dateutil==2.8.0
